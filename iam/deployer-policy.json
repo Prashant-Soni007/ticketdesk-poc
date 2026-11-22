@@ -1,0 +1,227 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "RegionalServicesUsedByThisProject",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:*",
+        "rds:*",
+        "lambda:*",
+        "ecr:*",
+        "secretsmanager:*",
+        "ssm:*",
+        "logs:*",
+        "cloudwatch:*",
+        "sns:*"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "ap-south-1"
+        }
+      }
+    },
+    {
+      "Sid": "KmsForAwsManagedKeysViaProjectServices",
+      "Effect": "Allow",
+      "Action": [
+        "kms:DescribeKey",
+        "kms:ListAliases",
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:GenerateDataKey*"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "ap-south-1"
+        },
+        "StringLike": {
+          "kms:ViaService": [
+            "ec2.ap-south-1.amazonaws.com",
+            "rds.ap-south-1.amazonaws.com",
+            "secretsmanager.ap-south-1.amazonaws.com"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "ProjectBucketsOnly",
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::ticketdesk-poc-*"
+    },
+    {
+      "Sid": "S3ListBucketsForConsoleAndCli",
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListAllMyBuckets",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ProjectRolesPoliciesAndProfiles",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:GetRole",
+        "iam:UpdateRole",
+        "iam:UpdateAssumeRolePolicy",
+        "iam:TagRole",
+        "iam:UntagRole",
+        "iam:ListRoleTags",
+        "iam:PutRolePolicy",
+        "iam:GetRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:ListRolePolicies",
+        "iam:ListAttachedRolePolicies",
+        "iam:ListInstanceProfilesForRole",
+        "iam:CreateInstanceProfile",
+        "iam:DeleteInstanceProfile",
+        "iam:GetInstanceProfile",
+        "iam:AddRoleToInstanceProfile",
+        "iam:RemoveRoleFromInstanceProfile",
+        "iam:TagInstanceProfile",
+        "iam:UntagInstanceProfile"
+      ],
+      "Resource": [
+        "arn:aws:iam::940111675845:role/ticketdesk-poc-*",
+        "arn:aws:iam::940111675845:instance-profile/ticketdesk-poc-*"
+      ]
+    },
+    {
+      "Sid": "OnlyTheSsmManagedPolicyMayBeAttached",
+      "Effect": "Allow",
+      "Action": [
+        "iam:AttachRolePolicy",
+        "iam:DetachRolePolicy"
+      ],
+      "Resource": "arn:aws:iam::940111675845:role/ticketdesk-poc-*",
+      "Condition": {
+        "ArnEquals": {
+          "iam:PolicyARN": "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+        }
+      }
+    },
+    {
+      "Sid": "PassProjectRolesToTheirServicesOnly",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::940111675845:role/ticketdesk-poc-*",
+      "Condition": {
+        "StringEquals": {
+          "iam:PassedToService": [
+            "ec2.amazonaws.com",
+            "lambda.amazonaws.com"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "GitHubOidcProvider",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateOpenIDConnectProvider",
+        "iam:DeleteOpenIDConnectProvider",
+        "iam:GetOpenIDConnectProvider",
+        "iam:UpdateOpenIDConnectProviderThumbprint",
+        "iam:TagOpenIDConnectProvider",
+        "iam:UntagOpenIDConnectProvider",
+        "iam:AddClientIDToOpenIDConnectProvider",
+        "iam:RemoveClientIDFromOpenIDConnectProvider"
+      ],
+      "Resource": "arn:aws:iam::940111675845:oidc-provider/token.actions.githubusercontent.com"
+    },
+    {
+      "Sid": "IamReadOnlyAndServiceLinkedRolesForRdsAndEcr",
+      "Effect": "Allow",
+      "Action": [
+        "iam:ListRoles",
+        "iam:ListPolicies",
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion",
+        "iam:ListOpenIDConnectProviders",
+        "iam:ListInstanceProfiles"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "CreateServiceLinkedRolesTheseServicesNeed",
+      "Effect": "Allow",
+      "Action": "iam:CreateServiceLinkedRole",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "iam:AWSServiceName": [
+            "rds.amazonaws.com",
+            "ecr.amazonaws.com"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "OptionalCloudFrontHttps",
+      "Effect": "Allow",
+      "Action": "cloudfront:*",
+      "Resource": "*"
+    },
+    {
+      "Sid": "ReadOnlyIdentityPricingAndCost",
+      "Effect": "Allow",
+      "Action": [
+        "sts:GetCallerIdentity",
+        "pricing:GetProducts",
+        "ce:GetCostAndUsage",
+        "access-analyzer:ValidatePolicy"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ManageOwnCredentialsAndMfa",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetUser",
+        "iam:ListAccessKeys",
+        "iam:CreateAccessKey",
+        "iam:DeleteAccessKey",
+        "iam:UpdateAccessKey",
+        "iam:ListMFADevices",
+        "iam:EnableMFADevice",
+        "iam:ResyncMFADevice",
+        "iam:DeactivateMFADevice",
+        "iam:ListAttachedUserPolicies",
+        "iam:ListUserPolicies"
+      ],
+      "Resource": "arn:aws:iam::940111675845:user/${aws:username}"
+    },
+    {
+      "Sid": "ManageOwnVirtualMfaDevice",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateVirtualMFADevice",
+        "iam:DeleteVirtualMFADevice"
+      ],
+      "Resource": "arn:aws:iam::940111675845:mfa/*"
+    },
+    {
+      "Sid": "NoSelfEscalation",
+      "Effect": "Deny",
+      "Action": [
+        "iam:AttachUserPolicy",
+        "iam:PutUserPolicy",
+        "iam:DetachUserPolicy",
+        "iam:DeleteUserPolicy",
+        "iam:AddUserToGroup",
+        "iam:CreatePolicyVersion",
+        "iam:SetDefaultPolicyVersion",
+        "iam:CreateUser",
+        "iam:CreateLoginProfile",
+        "iam:UpdateLoginProfile"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

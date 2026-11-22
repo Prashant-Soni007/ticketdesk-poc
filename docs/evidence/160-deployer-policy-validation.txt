@@ -1,0 +1,31 @@
+$ aws accessanalyzer validate-policy --policy-type IDENTITY_POLICY --policy-document file://iam/deployer-policy.json
+findings: 0
+$ aws iam simulate-custom-policy  (policy split into 3 documents <= 2000 chars, evaluated together)
+-- must be ALLOWED
+OK       expect=allowed       got=allowed       ec2:RunInstances *
+OK       expect=allowed       got=allowed       rds:CreateDBInstance *
+OK       expect=allowed       got=allowed       lambda:UpdateFunctionCode *
+OK       expect=allowed       got=allowed       ecr:PutImage *
+OK       expect=allowed       got=allowed       ssm:SendCommand *
+OK       expect=allowed       got=allowed       secretsmanager:GetSecretValue *
+OK       expect=allowed       got=allowed       logs:PutRetentionPolicy *
+OK       expect=allowed       got=allowed       sns:Publish *
+OK       expect=allowed       got=allowed       s3:PutObject arn:aws:s3:::ticketdesk-poc-tfstate-9401****5845/ticketdesk-poc/dev/terraform.tfstate
+OK       expect=allowed       got=allowed       s3:CreateBucket arn:aws:s3:::ticketdesk-poc-attachments-9401****5845
+OK       expect=allowed       got=allowed       iam:CreateRole arn:aws:iam::9401****5845:role/ticketdesk-poc-ec2-role
+OK       expect=allowed       got=allowed       iam:PutRolePolicy arn:aws:iam::9401****5845:role/ticketdesk-poc-lambda-role
+OK       expect=allowed       got=allowed       iam:AttachRolePolicy arn:aws:iam::9401****5845:role/ticketdesk-poc-ec2-role
+OK       expect=allowed       got=allowed       iam:PassRole arn:aws:iam::9401****5845:role/ticketdesk-poc-ec2-role
+OK       expect=allowed       got=allowed       iam:CreateOpenIDConnectProvider arn:aws:iam::9401****5845:oidc-provider/token.actions.githubusercontent.com
+OK       expect=allowed       got=allowed       sts:GetCallerIdentity *
+-- must be DENIED
+OK       expect=implicitDeny  got=implicitDeny  ec2:RunInstances *
+OK       expect=implicitDeny  got=implicitDeny  s3:GetObject arn:aws:s3:::some-other-bucket/x
+OK       expect=implicitDeny  got=implicitDeny  iam:CreateRole arn:aws:iam::9401****5845:role/AdminRole
+OK       expect=implicitDeny  got=implicitDeny  iam:AttachRolePolicy arn:aws:iam::9401****5845:role/ticketdesk-poc-ec2-role
+OK       expect=implicitDeny  got=implicitDeny  iam:PassRole arn:aws:iam::9401****5845:role/ticketdesk-poc-ec2-role
+OK       expect=explicitDeny  got=explicitDeny  iam:AttachUserPolicy arn:aws:iam::9401****5845:user/ticketdesk-poc
+OK       expect=explicitDeny  got=explicitDeny  iam:CreateUser arn:aws:iam::9401****5845:user/backdoor
+OK       expect=implicitDeny  got=implicitDeny  dynamodb:CreateTable *
+OK       expect=implicitDeny  got=implicitDeny  organizations:LeaveOrganization *
+RESULT: ALL OK
