@@ -1,0 +1,6 @@
+$ aws iam create-policy --policy-name ticketdesk-poc-deployer --policy-document file://iam/deployer-policy.json
+ticketdesk-poc-deployer	arn:aws:iam::9401****5845:policy/ticketdesk-poc-deployer	v1
+$ aws iam attach-user-policy --user-name ticketdesk-poc
+attached
+$ aws iam list-attached-user-policies --user-name ticketdesk-poc
+ticketdesk-poc-deployer	AdministratorAccess
