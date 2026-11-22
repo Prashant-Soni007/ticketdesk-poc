@@ -1,0 +1,70 @@
+$ terraform fmt -check -recursive terraform
+exit=0
+$ terraform -chdir=terraform/bootstrap validate
+Success! The configuration is valid.
+
+exit=0
+$ terraform -chdir=terraform/envs/dev validate
+Success! The configuration is valid.
+
+exit=0
+$ tfsec terraform/envs/dev (all severities, counts)
+  passed               44
+  ignored              7
+  critical             0
+  high                 0
+  medium               5
+  low                  5
+  44 passed, 7 ignored, 10 potential problem(s) detected.
+$ tfsec terraform/bootstrap (all severities, counts)
+  passed               8
+  ignored              1
+  critical             0
+  high                 0
+  medium               1
+  low                  0
+  8 passed, 1 ignored, 1 potential problem(s) detected.
+$ checkov -d terraform --framework terraform --compact --quiet
+Passed checks: 164, Failed checks: 0, Skipped checks: 28
+exit=0
+$ ignore/skip annotations in code (justification inline)
+bootstrap/main.tf:38:#tfsec:ignore:aws-s3-encryption-customer-key
+modules/database/main.tf:24: #checkov:skip=CKV_AWS_157:POC cost - single-AZ db.t4g.micro
+modules/database/main.tf:25: #checkov:skip=CKV_AWS_293:POC must be destroyable with `terraform destroy`
+modules/database/main.tf:26: #checkov:skip=CKV_AWS_353:POC cost/noise - Performance Insights not needed
+modules/database/main.tf:27: #checkov:skip=CKV_AWS_118:POC cost - Enhanced Monitoring not needed; CloudWatch alarms on CPU/storage exist
+modules/database/main.tf:28: #checkov:skip=CKV_AWS_161:App uses the RDS-managed Secrets Manager password; IAM DB auth would be unused
+modules/secrets/main.tf:21: #checkov:skip=CKV_AWS_149:POC - encrypted with the AWS-managed aws/secretsmanager key; a CMK adds cost for no extra control here
+modules/network/main.tf:9: #checkov:skip=CKV_AWS_394:Only the first two AZs are used (slice below), so new AZs cannot change the result set
+modules/iam/main.tf:56: #tfsec:ignore:aws-iam-no-policy-wildcards
+modules/security/main.tf:21: #checkov:skip=CKV_AWS_260:Public web app by design (no ALB in this POC). Restrict with allowed_cidrs = ["<your-ip>/32"] in dev.tfvars
+modules/security/main.tf:32: #checkov:skip=CKV_AWS_260:False positive - source is the CloudFront origin-facing prefix list, not 0.0.0.0/0
+modules/compute/main.tf:27: #checkov:skip=CKV_AWS_88:No ALB/NAT in this POC (cost), so the app host is in a public subnet; SG allows only port 80, no SSH
+modules/compute/main.tf:28: #checkov:skip=CKV_AWS_126:POC cost - basic 5-minute monitoring is enough for the CPU/status alarms
+modules/storage/main.tf:28:#tfsec:ignore:aws-s3-encryption-customer-key
+modules/lambda/main.tf:15: #checkov:skip=CKV_AWS_338:POC - 14-day retention keeps cost low; no compliance retention requirement
+modules/lambda/main.tf:16: #checkov:skip=CKV_AWS_158:POC - CloudWatch Logs are encrypted at rest by default; KMS CMK adds cost
+modules/lambda/main.tf:41: #tfsec:ignore:aws-iam-no-policy-wildcards
+modules/lambda/main.tf:58: #checkov:skip=CKV_AWS_50:POC - X-Ray tracing not needed for a single log-only function
+modules/lambda/main.tf:59: #checkov:skip=CKV_AWS_117:Function only talks to S3/CloudWatch APIs; putting it in a VPC would need a NAT or endpoints (cost)
+modules/lambda/main.tf:60: #checkov:skip=CKV_AWS_116:S3 async invokes are retried twice by Lambda; failures surface via the lambda-errors alarm
+modules/lambda/main.tf:61: #checkov:skip=CKV_AWS_272:POC - code signing needs a Signer profile; code is deployed only by Terraform from this repo
+modules/lambda/main.tf:62: #checkov:skip=CKV_AWS_115:New accounts have a 10-concurrency limit, so reserving concurrency can fail; Errors alarm covers abuse
+modules/monitoring/main.tf:13: #checkov:skip=CKV_AWS_338:POC - 14-day retention keeps cost low; no compliance retention requirement
+modules/monitoring/main.tf:14: #checkov:skip=CKV_AWS_158:POC - CloudWatch Logs are encrypted at rest by default; KMS CMK adds cost
+modules/monitoring/main.tf:21:#tfsec:ignore:aws-sns-enable-topic-encryption
+modules/monitoring/main.tf:23: #checkov:skip=CKV_AWS_26:See comment above - alarm payloads only, CMK not worth the cost for the POC
+modules/cdn/main.tf:49:#tfsec:ignore:aws-cloudfront-enable-waf
+modules/cdn/main.tf:50:#tfsec:ignore:aws-cloudfront-enable-logging
+modules/cdn/main.tf:51:#tfsec:ignore:aws-cloudfront-use-secure-tls-policy
+modules/cdn/main.tf:53: #checkov:skip=CKV_AWS_68:POC cost - WAF is ~$5+/month; access is limited by the IP allow-list function
+modules/cdn/main.tf:54: #checkov:skip=CKV2_AWS_47:No WAF (see above)
+modules/cdn/main.tf:55: #checkov:skip=CKV_AWS_86:POC cost/noise - access logs not needed; app logs go to CloudWatch
+modules/cdn/main.tf:56: #checkov:skip=CKV_AWS_174:The free default *.cloudfront.net certificate does not allow choosing a minimum TLS version (needs a custom cert + domain)
+modules/cdn/main.tf:57: #checkov:skip=CKV2_AWS_42:Custom certificate needs a domain; the default certificate is the free option
+modules/cdn/main.tf:58: #checkov:skip=CKV_AWS_310:Single EC2 origin by design (no second origin to fail over to)
+modules/cdn/main.tf:59: #checkov:skip=CKV_AWS_374:No geo restriction needed; viewer IP allow-list is stricter
+modules/cdn/main.tf:60: #checkov:skip=CKV2_AWS_32:Managed-SecurityHeadersPolicy is attached below
+modules/cdn/main.tf:61: #checkov:skip=CKV_AWS_305:Dynamic app - "/" is served (redirect to /login) by the origin, not a static object
+modules/registry/main.tf:3:#tfsec:ignore:aws-ecr-repository-customer-key
+modules/registry/main.tf:5: #checkov:skip=CKV_AWS_136:Accepted POC risk - AES256 (AWS-owned key) is encrypted at rest; a KMS CMK adds cost for no extra control here

@@ -1,0 +1,24 @@
+# Local run: docker compose up --build  ->  http://localhost:8000
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ticketdesk
+      POSTGRES_USER: ticketdesk
+      POSTGRES_PASSWORD: localdevpassword
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ticketdesk"]
+      interval: 5s
+      retries: 10
+  app:
+    build: ./app
+    depends_on:
+      db:
+        condition: service_healthy
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://ticketdesk:localdevpassword@db:5432/ticketdesk
+      SESSION_SECRET: local-dev-session-secret
+      ADMIN_PASSWORD: admin123!
+      USER_PASSWORD: user123!
+      UPLOAD_DIR: /tmp/uploads

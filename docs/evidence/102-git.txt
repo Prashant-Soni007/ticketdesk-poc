@@ -1,0 +1,10 @@
+$ git remote -v
+(none configured at collection time)
+$ git rev-list --count HEAD
+1
+$ git log --format=%s
+TicketDesk POC: FastAPI app on AWS with Terraform, CI/CD and evidence
+$ git config user.name
+Prashant Soni
+$ git shortlog -sn
+     1	Prashant Soni

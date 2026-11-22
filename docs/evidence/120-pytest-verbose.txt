@@ -1,0 +1,23 @@
+$ cd app && pytest -v
+tests/test_app.py::test_health PASSED                                    [  5%]
+tests/test_app.py::test_login_required PASSED                            [ 11%]
+tests/test_app.py::test_login_success_and_failure PASSED                 [ 17%]
+tests/test_app.py::test_csrf_enforced PASSED                             [ 23%]
+tests/test_app.py::test_create_and_view_ticket PASSED                    [ 29%]
+tests/test_app.py::test_user_cannot_change_status_admin_can_flow PASSED  [ 35%]
+tests/test_app.py::test_invalid_status_transition_rejected PASSED        [ 41%]
+tests/test_app.py::test_dashboard_counts PASSED                          [ 47%]
+tests/test_app.py::test_users_cannot_see_other_users_tickets PASSED      [ 52%]
+tests/test_app.py::test_attachment_upload_download_and_validation PASSED [ 58%]
+tests/test_app.py::test_rotated_seed_password_applied_on_restart PASSED  [ 64%]
+tests/test_units.py::test_status_flow PASSED                             [ 70%]
+tests/test_units.py::test_password_hashing PASSED                        [ 76%]
+tests/test_units.py::test_safe_filename_blocks_traversal PASSED          [ 82%]
+tests/test_units.py::test_db_password_refreshed_on_each_new_connection PASSED [ 88%]
+tests/test_units.py::test_from_env_sets_db_secret_only_without_database_url PASSED [ 94%]
+tests/test_units.py::test_s3_presigned_url_uses_regional_endpoint PASSED [100%]
+============================== 17 passed in 1.27s ==============================
+$ pytest -v lambda/test_handler.py
+lambda/test_handler.py::test_handler_processes_records PASSED            [ 50%]
+lambda/test_handler.py::test_handler_empty_event PASSED                  [100%]
+============================== 2 passed in 0.02s ===============================

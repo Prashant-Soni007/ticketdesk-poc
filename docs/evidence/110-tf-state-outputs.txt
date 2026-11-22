@@ -1,0 +1,86 @@
+$ terraform state list
+module.compute.data.aws_ssm_parameter.al2023_arm64
+module.compute.aws_eip.app
+module.compute.aws_instance.app
+module.database.aws_db_instance.this
+module.database.aws_db_subnet_group.this
+module.github_oidc.data.aws_caller_identity.current
+module.iam.data.aws_caller_identity.current
+module.iam.data.aws_iam_policy_document.app
+module.iam.data.aws_iam_policy_document.ec2_assume
+module.iam.aws_iam_instance_profile.ec2
+module.iam.aws_iam_role.ec2
+module.iam.aws_iam_role_policy.app
+module.iam.aws_iam_role_policy_attachment.ssm
+module.lambda.data.archive_file.zip
+module.lambda.data.aws_iam_policy_document.assume
+module.lambda.data.aws_iam_policy_document.perms
+module.lambda.aws_cloudwatch_log_group.lambda
+module.lambda.aws_iam_role.lambda
+module.lambda.aws_iam_role_policy.lambda
+module.lambda.aws_lambda_function.processor
+module.lambda.aws_lambda_permission.s3
+module.lambda.aws_s3_bucket_notification.attachments
+module.monitoring.aws_cloudwatch_dashboard.main
+module.monitoring.aws_cloudwatch_log_group.app
+module.monitoring.aws_cloudwatch_log_metric_filter.app_errors
+module.monitoring.aws_cloudwatch_metric_alarm.app_errors
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_cpu
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_status
+module.monitoring.aws_cloudwatch_metric_alarm.lambda_errors
+module.monitoring.aws_cloudwatch_metric_alarm.rds_cpu
+module.monitoring.aws_cloudwatch_metric_alarm.rds_storage
+module.monitoring.aws_sns_topic.alerts
+module.monitoring.aws_sns_topic_subscription.email[0]
+module.network.data.aws_availability_zones.available
+module.network.aws_default_security_group.default
+module.network.aws_internet_gateway.this
+module.network.aws_route_table.private
+module.network.aws_route_table.public
+module.network.aws_route_table_association.private[0]
+module.network.aws_route_table_association.private[1]
+module.network.aws_route_table_association.public[0]
+module.network.aws_route_table_association.public[1]
+module.network.aws_subnet.private[0]
+module.network.aws_subnet.private[1]
+module.network.aws_subnet.public[0]
+module.network.aws_subnet.public[1]
+module.network.aws_vpc.this
+module.network.aws_vpc_endpoint.s3
+module.registry.aws_ecr_lifecycle_policy.app
+module.registry.aws_ecr_repository.app
+module.secrets.aws_secretsmanager_secret.app
+module.secrets.aws_secretsmanager_secret_version.app
+module.secrets.random_password.admin
+module.secrets.random_password.session
+module.secrets.random_password.user
+module.security.aws_security_group.app
+module.security.aws_security_group.db
+module.security.aws_vpc_security_group_egress_rule.app_https
+module.security.aws_vpc_security_group_egress_rule.app_to_db
+module.security.aws_vpc_security_group_ingress_rule.app_http["0.0.0.0/0"]
+module.security.aws_vpc_security_group_ingress_rule.db_from_app
+module.storage.data.aws_caller_identity.current
+module.storage.data.aws_iam_policy_document.tls_only
+module.storage.aws_s3_bucket.attachments
+module.storage.aws_s3_bucket_lifecycle_configuration.attachments
+module.storage.aws_s3_bucket_ownership_controls.attachments
+module.storage.aws_s3_bucket_policy.attachments
+module.storage.aws_s3_bucket_public_access_block.attachments
+module.storage.aws_s3_bucket_server_side_encryption_configuration.attachments
+module.storage.aws_s3_bucket_versioning.attachments
+
+count (managed, excl. data): 59
+
+$ terraform output
+app_log_group = "/ticketdesk-poc/app"
+app_secret_arn = "arn:aws:secretsmanager:ap-south-1:9401****5845:secret:ticketdesk-poc/app-PhyWtt"
+app_url = "http://13.203.87.250"
+attachments_bucket = "ticketdesk-poc-attachments-9401****5845"
+cloudfront_distribution_id = ""
+ecr_repository_url = "9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app"
+github_deploy_role_arn = ""
+instance_id = "i-02a5df5a8535b1b31"
+lambda_function = "ticketdesk-poc-file-processor"
+origin_url = "http://13.203.87.250"
+rds_endpoint = "ticketdesk-poc-db.cr4euoigchpi.ap-south-1.rds.amazonaws.com"

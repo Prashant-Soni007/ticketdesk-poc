@@ -1,0 +1,92 @@
+$ scripts/infra.sh apply   (revised plan, 9 to add)
+module.database.aws_db_instance.this: Creating...
+module.database.aws_db_instance.this: Still creating... [00m10s elapsed]
+module.database.aws_db_instance.this: Still creating... [00m20s elapsed]
+module.database.aws_db_instance.this: Still creating... [00m30s elapsed]
+module.database.aws_db_instance.this: Still creating... [00m40s elapsed]
+module.database.aws_db_instance.this: Still creating... [00m50s elapsed]
+module.database.aws_db_instance.this: Still creating... [01m00s elapsed]
+module.database.aws_db_instance.this: Still creating... [01m10s elapsed]
+module.database.aws_db_instance.this: Still creating... [01m20s elapsed]
+module.database.aws_db_instance.this: Still creating... [01m30s elapsed]
+module.database.aws_db_instance.this: Still creating... [01m40s elapsed]
+module.database.aws_db_instance.this: Still creating... [01m50s elapsed]
+module.database.aws_db_instance.this: Still creating... [02m00s elapsed]
+module.database.aws_db_instance.this: Still creating... [02m10s elapsed]
+module.database.aws_db_instance.this: Still creating... [02m20s elapsed]
+module.database.aws_db_instance.this: Still creating... [02m30s elapsed]
+module.database.aws_db_instance.this: Still creating... [02m40s elapsed]
+module.database.aws_db_instance.this: Still creating... [02m50s elapsed]
+module.database.aws_db_instance.this: Still creating... [03m00s elapsed]
+module.database.aws_db_instance.this: Still creating... [03m10s elapsed]
+module.database.aws_db_instance.this: Still creating... [03m20s elapsed]
+module.database.aws_db_instance.this: Still creating... [03m30s elapsed]
+module.database.aws_db_instance.this: Still creating... [03m40s elapsed]
+module.database.aws_db_instance.this: Still creating... [03m50s elapsed]
+module.database.aws_db_instance.this: Still creating... [04m00s elapsed]
+module.database.aws_db_instance.this: Still creating... [04m10s elapsed]
+module.database.aws_db_instance.this: Still creating... [04m20s elapsed]
+module.database.aws_db_instance.this: Still creating... [04m30s elapsed]
+module.database.aws_db_instance.this: Still creating... [04m40s elapsed]
+module.database.aws_db_instance.this: Still creating... [04m50s elapsed]
+module.database.aws_db_instance.this: Still creating... [05m00s elapsed]
+module.database.aws_db_instance.this: Still creating... [05m10s elapsed]
+module.database.aws_db_instance.this: Still creating... [05m20s elapsed]
+module.database.aws_db_instance.this: Still creating... [05m30s elapsed]
+module.database.aws_db_instance.this: Still creating... [05m40s elapsed]
+module.database.aws_db_instance.this: Still creating... [05m50s elapsed]
+module.database.aws_db_instance.this: Still creating... [06m00s elapsed]
+module.database.aws_db_instance.this: Still creating... [06m10s elapsed]
+module.database.aws_db_instance.this: Still creating... [06m20s elapsed]
+module.database.aws_db_instance.this: Still creating... [06m30s elapsed]
+module.database.aws_db_instance.this: Still creating... [06m40s elapsed]
+module.database.aws_db_instance.this: Still creating... [06m50s elapsed]
+module.database.aws_db_instance.this: Still creating... [07m00s elapsed]
+module.database.aws_db_instance.this: Still creating... [07m10s elapsed]
+module.database.aws_db_instance.this: Still creating... [07m20s elapsed]
+module.database.aws_db_instance.this: Still creating... [07m30s elapsed]
+module.database.aws_db_instance.this: Still creating... [07m40s elapsed]
+module.database.aws_db_instance.this: Still creating... [07m50s elapsed]
+module.database.aws_db_instance.this: Still creating... [08m00s elapsed]
+module.database.aws_db_instance.this: Still creating... [08m10s elapsed]
+module.database.aws_db_instance.this: Still creating... [08m20s elapsed]
+module.database.aws_db_instance.this: Still creating... [08m30s elapsed]
+module.database.aws_db_instance.this: Still creating... [08m40s elapsed]
+module.database.aws_db_instance.this: Still creating... [08m50s elapsed]
+module.database.aws_db_instance.this: Still creating... [09m00s elapsed]
+module.database.aws_db_instance.this: Still creating... [09m10s elapsed]
+module.database.aws_db_instance.this: Creation complete after 9m14s [id=db-KHJD3IDYTBOJDDZLEDCMU5Q5T4]
+module.iam.data.aws_iam_policy_document.app: Reading...
+module.monitoring.aws_cloudwatch_metric_alarm.rds_cpu: Creating...
+module.monitoring.aws_cloudwatch_metric_alarm.rds_storage: Creating...
+module.iam.data.aws_iam_policy_document.app: Read complete after 0s [id=1826735542]
+module.iam.aws_iam_role_policy.app: Creating...
+module.compute.aws_instance.app: Creating...
+module.monitoring.aws_cloudwatch_metric_alarm.rds_storage: Creation complete after 1s [id=ticketdesk-poc-rds-free-storage-low]
+module.monitoring.aws_cloudwatch_metric_alarm.rds_cpu: Creation complete after 1s [id=ticketdesk-poc-rds-cpu-high]
+module.iam.aws_iam_role_policy.app: Creation complete after 2s [id=ticketdesk-poc-ec2-role:ticketdesk-poc-app-policy]
+module.compute.aws_instance.app: Still creating... [00m10s elapsed]
+module.compute.aws_instance.app: Creation complete after 14s [id=i-032a7a23371c1d73f]
+module.compute.aws_eip.app: Creating...
+module.monitoring.aws_cloudwatch_dashboard.main: Creating...
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_status: Creating...
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_cpu: Creating...
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_cpu: Creation complete after 0s [id=ticketdesk-poc-ec2-cpu-high]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_status: Creation complete after 0s [id=ticketdesk-poc-ec2-status-check-failed]
+module.monitoring.aws_cloudwatch_dashboard.main: Creation complete after 1s [id=ticketdesk-poc-dashboard]
+module.compute.aws_eip.app: Creation complete after 1s [id=eipalloc-0637b5e6fde4597a4]
+
+Apply complete! Resources: 9 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+app_log_group = "/ticketdesk-poc/app"
+app_secret_arn = "arn:aws:secretsmanager:ap-south-1:9401****5845:secret:ticketdesk-poc/app-PhyWtt"
+app_url = "http://13.203.87.250"
+attachments_bucket = "ticketdesk-poc-attachments-9401****5845"
+ecr_repository_url = "9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app"
+github_deploy_role_arn = ""
+instance_id = "i-032a7a23371c1d73f"
+lambda_function = "ticketdesk-poc-file-processor"
+rds_endpoint = "ticketdesk-poc-db.cr4euoigchpi.ap-south-1.rds.amazonaws.com"
+exit=0

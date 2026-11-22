@@ -1,0 +1,9 @@
+$ tfsec terraform/envs/dev --minimum-severity HIGH
+tfsec will continue to remain available 
+WARNING: A tfvars file was found but not automatically used. Did you mean to specify the --tfvars-file flag?
+No problems detected!
+exit=0
+$ tfsec terraform/bootstrap --minimum-severity HIGH
+tfsec will continue to remain available 
+No problems detected!
+exit=0

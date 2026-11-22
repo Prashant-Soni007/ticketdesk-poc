@@ -1,0 +1,7 @@
+$ aws ce get-cost-and-usage --time-period Start=2026-11-01,End=2026-11-23 --granularity MONTHLY --metrics UnblendedCost --group-by SERVICE   (1 call, $0.01)
+AWS Data Transfer                                       -0.0000000016
+AWS Glue                                                0
+Amazon Simple Storage Service                           0.0000000016
+Tax                                                     0
+TOTAL (USD, unblended)                                  0.0000
+(Cost Explorer data lags up to 24 h; resources were created on 2026-11-22, so month-to-date spend is not yet reflected. Free-plan credits may also offset charges.)

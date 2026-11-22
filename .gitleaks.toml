@@ -1,0 +1,7 @@
+title = "ticketdesk-poc gitleaks config"
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Local-only development values and test fixtures"
+paths = ['''docker-compose\.yml''', '''app/tests/''']

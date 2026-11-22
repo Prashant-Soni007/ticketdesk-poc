@@ -1,0 +1,27 @@
+$ app SG ingress rules (sg-0712c52175e396700)
+80	38.183.x.x/32
+$ aws sns list-subscriptions-by-topic
+email	PendingConfirmation
+$ scripts/smoke_test.sh   (after restricting port 80)
+PASS  health + database up
+PASS  user login
+PASS  bad login rejected
+PASS  anonymous redirected to login
+PASS  ticket created (/tickets/3)
+PASS  attachment uploaded
+PASS  attachment download matches upload (/attachments/3)
+PASS  object present in S3 (tickets/3/)
+waiting for Lambda log...
+PASS  Lambda processed upload
+PASS  normal user cannot change status (403)
+PASS  admin login
+PASS  invalid transition Open -> Closed rejected (422)
+PASS  status Open -> In Progress
+PASS  status In Progress -> Resolved
+PASS  status Resolved -> Closed
+PASS  no transition out of Closed (422)
+PASS  dashboard reflects status ({"counts":{"Open":0,"In Progress":0,"Resolved":0,"Closed":3},"total":3})
+ALL CHECKS PASSED
+exit=0
+$ terraform plan -detailed-exitcode (drift)
+exit=0 (0 = no changes)

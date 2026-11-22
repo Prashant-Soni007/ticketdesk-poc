@@ -1,0 +1,89 @@
+$ instance security groups / app SG ingress
+app SG: sg-0712c52175e396700
+------------------------------------------------------------------
+|                   DescribeSecurityGroupRules                   |
++-----------+---------+-------+--------+-------------------------+
+|   Cidr    | Egress  | Port  | Proto  |           Ref           |
++-----------+---------+-------+--------+-------------------------+
+|  0.0.0.0/0|  True   |  443  |  tcp   |  None                   |
+|  0.0.0.0/0|  False  |  80   |  tcp   |  None                   |
+|  None     |  True   |  5432 |  tcp   |  sg-048fa0a7fc678c4ec   |
++-----------+---------+-------+--------+-------------------------+
+===== ticketdesk-poc-ec2-role
+$ aws iam list-attached-role-policies
+arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+$ aws iam get-role-policy --policy-name ticketdesk-poc-app-policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::ticketdesk-poc-attachments-9401****5845/tickets/*",
+            "Sid": "AttachmentsObjects"
+        },
+        {
+            "Action": "secretsmanager:GetSecretValue",
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:secretsmanager:ap-south-1:9401****5845:secret:ticketdesk-poc/app-PhyWtt",
+                "arn:aws:secretsmanager:ap-south-1:9401****5845:secret:rds!db-0286b81b-61b2-4bdf-b56c-5da91c506e9d-tGwDUA"
+            ],
+            "Sid": "ReadOnlyTheTwoSecrets"
+        },
+        {
+            "Action": "ecr:GetAuthorizationToken",
+            "Effect": "Allow",
+            "Resource": "*",
+            "Sid": "EcrLogin"
+        },
+        {
+            "Action": [
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+                "ecr:BatchCheckLayerAvailability"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:ecr:ap-south-1:9401****5845:repository/ticketdesk-poc-app",
+            "Sid": "EcrPullOnly"
+        },
+        {
+            "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogStream"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:logs:ap-south-1:9401****5845:log-group:/ticketdesk-poc/app:*",
+            "Sid": "AppLogs"
+        }
+    ]
+}
+===== ticketdesk-poc-lambda-role
+$ aws iam list-attached-role-policies
+$ aws iam get-role-policy --policy-name ticketdesk-poc-lambda-policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "logs:PutLogEvents",
+                "logs:CreateLogStream"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:logs:ap-south-1:9401****5845:log-group:/aws/lambda/ticketdesk-poc-file-processor:*",
+            "Sid": "WriteOwnLogs"
+        },
+        {
+            "Action": "s3:GetObject",
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::ticketdesk-poc-attachments-9401****5845/tickets/*",
+            "Sid": "ReadUploadedObjects"
+        }
+    ]
+}
+===== GitHub deploy role (should not exist; github_repo empty)
+NoSuchEntity
+ticketdesk-poc-github-deploy

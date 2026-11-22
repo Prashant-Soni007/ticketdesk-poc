@@ -1,0 +1,29 @@
+$ aws rds describe-db-instances --db-instance-identifier ticketdesk-poc-db
+{
+    "PubliclyAccessible": false,
+    "StorageEncrypted": true,
+    "Subnets": [
+        "subnet-0b31151fc07a1d7b9",
+        "subnet-09f6f1cacd920506c"
+    ],
+    "SecurityGroups": [
+        "sg-048fa0a7fc678c4ec"
+    ],
+    "MasterSecret": "active",
+    "Engine": "16.13"
+}
+$ DB subnets route tables (must have no 0.0.0.0/0 route)
+  subnet-0b31151fc07a1d7b9  10.0.0.0/16	local
+  subnet-0b31151fc07a1d7b9  pl-78a54011	vpce-0943d3ddb905577e8
+  subnet-09f6f1cacd920506c  10.0.0.0/16	local
+  subnet-09f6f1cacd920506c  pl-78a54011	vpce-0943d3ddb905577e8
+$ DB security group ingress
+------------------------------------------
+|       DescribeSecurityGroupRules       |
++------+------------------------+--------+
+| Cidr |         From           | Port   |
++------+------------------------+--------+
+|  None|  sg-0712c52175e396700  |  5432  |
++------+------------------------+--------+
+$ aws rds describe-db-parameters (rds.force_ssl)
+rds.force_ssl	1

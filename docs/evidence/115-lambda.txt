@@ -1,0 +1,42 @@
+$ aws lambda get-function-configuration --function-name ticketdesk-poc-file-processor
+{
+    "Runtime": "python3.12",
+    "Arch": [
+        "arm64"
+    ],
+    "Handler": "handler.handler",
+    "MemoryMB": 128,
+    "TimeoutS": 30,
+    "Role": "arn:aws:iam::9401****5845:role/ticketdesk-poc-lambda-role",
+    "LastModified": "2026-11-22T16:05:03.329+0000",
+    "CodeSize": 610,
+    "State": "Active"
+}
+$ aws s3api get-bucket-notification-configuration --bucket ticketdesk-poc-attachments-9401****5845
+{
+    "LambdaFunctionConfigurations": [
+        {
+            "Id": "tf-s3-lambda-20261122160522947800000007",
+            "LambdaFunctionArn": "arn:aws:lambda:ap-south-1:9401****5845:function:ticketdesk-poc-file-processor",
+            "Events": [
+                "s3:ObjectCreated:*"
+            ],
+            "Filter": {
+                "Key": {
+                    "FilterRules": [
+                        {
+                            "Name": "Prefix",
+                            "Value": "tickets/"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
+$ aws logs filter-log-events /aws/lambda/ticketdesk-poc-file-processor attachment_processed (last 5)
+
+1795366525925	[INFO]	2026-11-22T16:55:25.925Z	beea122c-0ba2-4a21-b89f-f543f6f9469e	{"event": "attachment_processed", "bucket": "ticketdesk-poc-attachments-9401****5845", "key": "tickets/5/9993a5a7e9a7454eb84b34f027fc666f-td_smoke.txt", "size": 32, "content_type": "text/plain", "ticket_id": "5"}
+
+1795367169989	[INFO]	2026-11-22T17:06:09.989Z	57510330-17a7-41d1-b765-6619a4cdbd12	{"event": "attachment_processed", "bucket": "ticketdesk-poc-attachments-9401****5845", "key": "tickets/6/3cba92fae02f4745af41595cda234da3-td_smoke.txt", "size": 32, "content_type": "text/plain", "ticket_id": "6"}
+

@@ -1,0 +1,51 @@
+{% extends "base.html" %}{% from "_ui.html" import status, prio %}
+{% block title %}Tickets{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>Tickets</h1>
+    <p>{{ tickets|length }} {{ 'ticket' if tickets|length == 1 else 'tickets' }}{% if filter %} with status {{ filter }}{% endif %}</p>
+  </div>
+</div>
+
+<div class="split">
+  <section class="panel" aria-label="Ticket list">
+    <div class="panel-head">
+      <nav class="tabs" aria-label="Filter by status">
+        <a href="/tickets"{% if not filter %} aria-current="page"{% endif %}>All</a>
+        {% for s in statuses %}<a href="/tickets?status={{ s|urlencode }}"{% if filter == s %} aria-current="page"{% endif %}>{{ s }}</a>{% endfor %}
+      </nav>
+    </div>
+    {% if tickets %}
+    <div class="table-wrap"><table>
+      <thead><tr><th scope="col">ID</th><th scope="col">Title</th><th scope="col">Priority</th><th scope="col">Status</th><th scope="col" class="hide-sm">Raised</th></tr></thead>
+      <tbody>{% for t in tickets %}
+        <tr><td class="id">#{{ t.id }}</td><td class="title"><a href="/tickets/{{ t.id }}">{{ t.title }}</a></td><td>{{ prio(t.priority) }}</td><td>{{ status(t.status) }}</td><td class="when hide-sm">{{ t.created_at.strftime('%d %b %H:%M') }}</td></tr>
+      {% endfor %}</tbody>
+    </table></div>
+    {% else %}
+    <div class="empty"><strong>{% if filter %}Nothing {{ filter|lower }}{% else %}No tickets yet{% endif %}</strong>{% if filter %}No tickets have this status right now. <a href="/tickets">Show all</a>{% else %}Use the form to raise your first ticket.{% endif %}</div>
+    {% endif %}
+  </section>
+
+  <section class="panel" aria-labelledby="new" id="new-panel">
+    <div class="panel-head"><h2 id="new">Raise a ticket</h2></div>
+    <form class="panel-body" method="post" action="/tickets">
+      <input type="hidden" name="csrf" value="{{ csrf }}">
+      <label class="field"><span>Title</span>
+        <input type="text" name="title" maxlength="200" required aria-describedby="title-help">
+        <small id="title-help">One line, e.g. "VPN drops every 10 minutes"</small></label>
+      <label class="field"><span>Details</span>
+        <textarea name="description" rows="4" maxlength="5000" aria-describedby="desc-help"></textarea>
+        <small id="desc-help">What happened, where, and since when.</small></label>
+      <fieldset class="field" style="border:0;padding:0;margin:0 0 var(--sp-5)">
+        <legend style="font-size:.875rem;font-weight:600;margin-bottom:var(--sp-1);padding:0">Priority</legend>
+        <div class="segmented">{% for p in priorities %}
+          <label><input type="radio" name="priority" value="{{ p }}"{% if p == 'Medium' %} checked{% endif %}><span>{{ p }}</span></label>{% endfor %}
+        </div>
+      </fieldset>
+      <button class="btn btn-block">Create ticket</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

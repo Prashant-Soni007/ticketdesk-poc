@@ -1,0 +1,23 @@
+$ aws cloudwatch list-dashboards --dashboard-name-prefix ticketdesk-poc
+ticketdesk-poc-dashboard	1143
+$ dashboard widgets
+  metric - EC2 CPU %
+  metric - RDS CPU % and connections
+  metric - Lambda invocations / errors
+  log - Recent application logs
+$ aws cloudwatch describe-alarms --alarm-name-prefix ticketdesk-poc
+-------------------------------------------------------
+|                   DescribeAlarms                    |
++------------------------------------------+-----+----+
+|  ticketdesk-poc-app-errors               |  OK |  1 |
+|  ticketdesk-poc-ec2-cpu-high             |  OK |  1 |
+|  ticketdesk-poc-ec2-status-check-failed  |  OK |  1 |
+|  ticketdesk-poc-lambda-errors            |  OK |  1 |
+|  ticketdesk-poc-rds-cpu-high             |  OK |  1 |
+|  ticketdesk-poc-rds-free-storage-low     |  OK |  1 |
++------------------------------------------+-----+----+
+$ aws sns list-subscriptions-by-topic
+
+aws: [ERROR]: An error occurred (InvalidParameter) when calling the ListSubscriptionsByTopic operation: Invalid parameter: TopicArn Reason: An ARN must have at least 6 elements, not 5
+$ aws logs describe-metric-filters (app errors)
+ticketdesk-poc-app-errors	"ERROR"

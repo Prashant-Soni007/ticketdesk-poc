@@ -1,0 +1,3 @@
+$ aws sns list-subscriptions-by-topic / get-topic-attributes (after user clicked confirm link)
+email  arn:aws:sns:ap-south-1:9401****5845:ticketdesk-poc-alerts:da2231df-...  (confirmed)
+SubscriptionsConfirmed=1  SubscriptionsPending=0

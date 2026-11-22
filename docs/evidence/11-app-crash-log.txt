@@ -1,0 +1,40 @@
+app-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+app-1  |   File "/usr/local/lib/python3.12/site-packages/uvicorn/main.py", line 412, in main
+app-1  |     run(
+app-1  |   File "/usr/local/lib/python3.12/site-packages/uvicorn/main.py", line 579, in run
+app-1  |     server.run()
+app-1  |   File "/usr/local/lib/python3.12/site-packages/uvicorn/server.py", line 66, in run
+app-1  |     return asyncio.run(self.serve(sockets=sockets))
+app-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app-1  |   File "/usr/local/lib/python3.12/asyncio/runners.py", line 195, in run
+app-1  |     return runner.run(main)
+app-1  |            ^^^^^^^^^^^^^^^^
+app-1  |   File "/usr/local/lib/python3.12/asyncio/runners.py", line 118, in run
+app-1  |     return self._loop.run_until_complete(task)
+app-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app-1  |   File "uvloop/loop.pyx", line 1515, in uvloop.loop.Loop.run_until_complete
+app-1  |   File "/usr/local/lib/python3.12/site-packages/uvicorn/server.py", line 70, in serve
+app-1  |     await self._serve(sockets)
+app-1  |   File "/usr/local/lib/python3.12/site-packages/uvicorn/server.py", line 77, in _serve
+app-1  |     config.load()
+app-1  |   File "/usr/local/lib/python3.12/site-packages/uvicorn/config.py", line 435, in load
+app-1  |     self.loaded_app = import_from_string(self.app)
+app-1  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app-1  |   File "/usr/local/lib/python3.12/site-packages/uvicorn/importer.py", line 19, in import_from_string
+app-1  |     module = importlib.import_module(module_str)
+app-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app-1  |   File "/usr/local/lib/python3.12/importlib/__init__.py", line 90, in import_module
+app-1  |     return _bootstrap._gcd_import(name[level:], package, level)
+app-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app-1  |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+app-1  |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+app-1  |   File "<frozen importlib._bootstrap>", line 1310, in _find_and_load_unlocked
+app-1  |   File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+app-1  |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+app-1  |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+app-1  |   File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+app-1  |   File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+app-1  |   File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+app-1  |   File "<frozen importlib._bootstrap_external>", line 1132, in get_code
+app-1  |   File "<frozen importlib._bootstrap_external>", line 1190, in get_data
+app-1  | PermissionError: [Errno 13] Permission denied: '/srv/ticketdesk/__init__.py'

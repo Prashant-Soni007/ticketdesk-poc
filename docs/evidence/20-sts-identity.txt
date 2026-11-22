@@ -1,0 +1,4 @@
+$ aws sts get-caller-identity --profile ticketdesk
+Account: 9401****5845
+Arn: arn:aws:iam::9401****5845:user/ticketdesk-poc
+(account id masked)

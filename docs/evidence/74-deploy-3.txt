@@ -1,0 +1,152 @@
+$ scripts/deploy.sh   (deploy #3, new instance after rollback)
+==> Building and pushing 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:manual-20261122164309 (linux/arm64)
+Login Succeeded
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.08kB done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 ...
+
+#3 [auth] docker/dockerfile:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 1.6s
+
+#4 docker-image://docker.io/docker/dockerfile:1@sha256:572cebbc2b15e6f84c077742952674889cb63cd5e9b80abdffcbe587b6f19183
+#4 resolve docker.io/docker/dockerfile:1@sha256:572cebbc2b15e6f84c077742952674889cb63cd5e9b80abdffcbe587b6f19183 done
+#4 CACHED
+
+#5 [internal] load metadata for docker.io/library/python:3.12-slim
+#5 ...
+
+#6 [auth] library/python:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/python:3.12-slim
+#5 DONE 1.5s
+
+#7 [internal] load .dockerignore
+#7 transferring context: 94B done
+#7 DONE 0.0s
+
+#8 [build 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#8 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b done
+#8 DONE 0.0s
+
+#9 [internal] load build context
+#9 transferring context: 609B done
+#9 DONE 0.0s
+
+#10 [stage-1 4/7] COPY --from=build /install /usr/local
+#10 CACHED
+
+#11 [stage-1 6/7] COPY ticketdesk ./ticketdesk
+#11 CACHED
+
+#12 [build 2/4] WORKDIR /build
+#12 CACHED
+
+#13 [build 3/4] COPY requirements.txt .
+#13 CACHED
+
+#14 [stage-1 5/7] WORKDIR /srv
+#14 CACHED
+
+#15 [stage-1 2/7] RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
+#15 CACHED
+
+#16 [build 4/4] RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+#16 CACHED
+
+#17 [stage-1 3/7] RUN useradd --system --uid 10001 --create-home appuser
+#17 CACHED
+
+#18 [stage-1 7/7] RUN chmod -R a+rX,go-w /srv/ticketdesk
+#18 CACHED
+
+#19 exporting to image
+#19 exporting layers done
+#19 exporting manifest sha256:b9c7af5d11b0eebffa715870d4e7f75c8cb70ebc06a7800a2dad33723c0461af done
+#19 exporting config sha256:38c54cc76fc1016f955d34d39a9da4cb7fbaf582831418f85349feea60307d36 done
+#19 naming to 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:manual-20261122164309 done
+#19 pushing layers
+#19 ...
+
+#20 [auth] sharing credentials for 9401****5845.dkr.ecr.ap-south-1.amazonaws.com
+#20 DONE 0.0s
+
+#19 exporting to image
+#19 pushing layers 0.5s done
+#19 pushing manifest for 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:manual-20261122164309@sha256:b9c7af5d11b0eebffa715870d4e7f75c8cb70ebc06a7800a2dad33723c0461af
+#19 pushing manifest for 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:manual-20261122164309@sha256:b9c7af5d11b0eebffa715870d4e7f75c8cb70ebc06a7800a2dad33723c0461af 0.2s done
+#19 DONE 0.7s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/i3wc7ptthju3k30yqrp0hlffp
+==> Waiting for i-02a5df5a8535b1b31 to be online in SSM
+==> Deploying manual-20261122164309 on i-02a5df5a8535b1b31 via SSM
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+	Login Succeeded
+manual-20261122164309: Pulling from ticketdesk-poc-app
+acd43e9bebc3: Pulling fs layer
+0373269344dc: Pulling fs layer
+0ba3a3e89cd9: Pulling fs layer
+70b4f81c82dc: Pulling fs layer
+a39243824ba4: Pulling fs layer
+18f04b4bec3f: Pulling fs layer
+b7734b8d5032: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+2e46826f931e: Pulling fs layer
+db37c8b8ff60: Pulling fs layer
+18f04b4bec3f: Waiting
+b7734b8d5032: Waiting
+4f4fb700ef54: Waiting
+2e46826f931e: Waiting
+db37c8b8ff60: Waiting
+70b4f81c82dc: Waiting
+a39243824ba4: Waiting
+0373269344dc: Verifying Checksum
+0373269344dc: Download complete
+70b4f81c82dc: Verifying Checksum
+70b4f81c82dc: Download complete
+0ba3a3e89cd9: Verifying Checksum
+0ba3a3e89cd9: Download complete
+18f04b4bec3f: Verifying Checksum
+18f04b4bec3f: Download complete
+a39243824ba4: Verifying Checksum
+a39243824ba4: Download complete
+acd43e9bebc3: Verifying Checksum
+acd43e9bebc3: Download complete
+4f4fb700ef54: Verifying Checksum
+4f4fb700ef54: Download complete
+2e46826f931e: Verifying Checksum
+2e46826f931e: Download complete
+db37c8b8ff60: Verifying Checksum
+db37c8b8ff60: Download complete
+b7734b8d5032: Verifying Checksum
+b7734b8d5032: Download complete
+acd43e9bebc3: Pull complete
+0373269344dc: Pull complete
+0ba3a3e89cd9: Pull complete
+70b4f81c82dc: Pull complete
+a39243824ba4: Pull complete
+18f04b4bec3f: Pull complete
+b7734b8d5032: Pull complete
+4f4fb700ef54: Pull complete
+2e46826f931e: Pull complete
+db37c8b8ff60: Pull complete
+Digest: sha256:b9c7af5d11b0eebffa715870d4e7f75c8cb70ebc06a7800a2dad33723c0461af
+Status: Downloaded newer image for 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:manual-20261122164309
+9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:manual-20261122164309
+7f997ee183d41291edf82f35455b9a552442508528f9e586a0bf088859c92d1f
+deployed 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:manual-20261122164309
+	Success
+==> Waiting for http://13.203.87.250/health
+healthy (manual-20261122164309)
+exit=0

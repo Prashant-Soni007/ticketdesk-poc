@@ -1,0 +1,109 @@
+===== role ticketdesk-poc-ec2-role
+attached: arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+inline ticketdesk-poc-app-policy:
+[
+    {
+        "Sid": "AttachmentsObjects",
+        "Actions": [
+            "s3:PutObject",
+            "s3:GetObject"
+        ],
+        "Resources": "arn:aws:s3:::ticketdesk-poc-attachments-9401****5845/tickets/*"
+    },
+    {
+        "Sid": "ReadOnlyTheTwoSecrets",
+        "Actions": "secretsmanager:GetSecretValue",
+        "Resources": [
+            "arn:aws:secretsmanager:ap-south-1:9401****5845:secret:ticketdesk-poc/app-PhyWtt",
+            "arn:aws:secretsmanager:ap-south-1:9401****5845:secret:rds!db-0286b81b-61b2-4bdf-b56c-5da91c506e9d-tGwDUA"
+        ]
+    },
+    {
+        "Sid": "EcrLogin",
+        "Actions": "ecr:GetAuthorizationToken",
+        "Resources": "*"
+    },
+    {
+        "Sid": "EcrPullOnly",
+        "Actions": [
+            "ecr:GetDownloadUrlForLayer",
+            "ecr:BatchGetImage",
+            "ecr:BatchCheckLayerAvailability"
+        ],
+        "Resources": "arn:aws:ecr:ap-south-1:9401****5845:repository/ticketdesk-poc-app"
+    },
+    {
+        "Sid": "AppLogs",
+        "Actions": [
+            "logs:PutLogEvents",
+            "logs:CreateLogStream"
+        ],
+        "Resources": "arn:aws:logs:ap-south-1:9401****5845:log-group:/ticketdesk-poc/app:*"
+    }
+]
+===== role ticketdesk-poc-lambda-role
+inline ticketdesk-poc-lambda-policy:
+[
+    {
+        "Sid": "WriteOwnLogs",
+        "Actions": [
+            "logs:PutLogEvents",
+            "logs:CreateLogStream"
+        ],
+        "Resources": "arn:aws:logs:ap-south-1:9401****5845:log-group:/aws/lambda/ticketdesk-poc-file-processor:*"
+    },
+    {
+        "Sid": "ReadUploadedObjects",
+        "Actions": "s3:GetObject",
+        "Resources": "arn:aws:s3:::ticketdesk-poc-attachments-9401****5845/tickets/*"
+    }
+]
+===== roles named ticketdesk-poc*
+ticketdesk-poc-ec2-role	ticketdesk-poc-lambda-role
+===== OIDC: github deploy role / provider
+NoSuchEntity
+github OIDC providers: 0
+===== deployer IAM user ticketdesk-poc
+attached: AdministratorAccess
+MFA devices: 0
+access keys (status, created): Active 2026-11-22T15:15:50+00:00
+===== S3 ticketdesk-poc-attachments-9401****5845
+{
+    "BlockPublicAcls": true,
+    "IgnorePublicAcls": true,
+    "BlockPublicPolicy": true,
+    "RestrictPublicBuckets": true
+}
+{
+    "ApplyServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+    },
+    "BucketKeyEnabled": true,
+    "BlockedEncryptionTypes": {
+        "EncryptionType": [
+            "SSE-C"
+        ]
+    }
+}
+Enabled
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyInsecureTransport",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::ticketdesk-poc-attachments-9401****5845/*",
+                "arn:aws:s3:::ticketdesk-poc-attachments-9401****5845"
+            ],
+            "Condition": {
+                "Bool": {
+                    "aws:SecureTransport": "false"
+                }
+            }
+        }
+    ]
+}
+IsPublic: False

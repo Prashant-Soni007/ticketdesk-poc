@@ -1,0 +1,132 @@
+$ aws ec2 describe-vpcs (tag Project=ticketdesk-poc)
+----------------------------------------------------------------
+|                         DescribeVpcs                         |
++------------------------+--------------+----------------------+
+|  vpc-03685702f23aece80 |  10.0.0.0/16 |  ticketdesk-poc-vpc  |
++------------------------+--------------+----------------------+
+$ aws ec2 describe-subnets
+--------------------------------------------------------------------------------------------------
+|                                         DescribeSubnets                                        |
++---------------------------+----------------------------+---------------+--------------+--------+
+|  ticketdesk-poc-private-2 |  subnet-09f6f1cacd920506c  |  10.0.12.0/24 |  ap-south-1b |  False |
+|  ticketdesk-poc-private-1 |  subnet-0b31151fc07a1d7b9  |  10.0.11.0/24 |  ap-south-1a |  False |
+|  ticketdesk-poc-public-2  |  subnet-017639257b6f21b5d  |  10.0.2.0/24  |  ap-south-1b |  False |
+|  ticketdesk-poc-public-1  |  subnet-0996a57a60d4901b2  |  10.0.1.0/24  |  ap-south-1a |  False |
++---------------------------+----------------------------+---------------+--------------+--------+
+$ aws ec2 describe-route-tables
+[
+    {
+        "Name": "ticketdesk-poc-private-rt",
+        "Subnets": [
+            "subnet-0b31151fc07a1d7b9",
+            "subnet-09f6f1cacd920506c"
+        ],
+        "Routes": [
+            [
+                "10.0.0.0/16",
+                "local"
+            ],
+            [
+                "pl-78a54011",
+                "vpce-0943d3ddb905577e8"
+            ]
+        ]
+    },
+    {
+        "Name": null,
+        "Subnets": [],
+        "Routes": [
+            [
+                "10.0.0.0/16",
+                "local"
+            ]
+        ]
+    },
+    {
+        "Name": "ticketdesk-poc-public-rt",
+        "Subnets": [
+            "subnet-017639257b6f21b5d",
+            "subnet-0996a57a60d4901b2"
+        ],
+        "Routes": [
+            [
+                "10.0.0.0/16",
+                "local"
+            ],
+            [
+                "0.0.0.0/0",
+                "igw-00fe315c6221b4525"
+            ],
+            [
+                "pl-78a54011",
+                "vpce-0943d3ddb905577e8"
+            ]
+        ]
+    }
+]
+$ aws ec2 describe-vpc-endpoints
+-----------------------------------------------------------------------------------
+|                              DescribeVpcEndpoints                               |
++-------------------------+-------------------------------+----------+------------+
+|  vpce-0943d3ddb905577e8 |  com.amazonaws.ap-south-1.s3  |  Gateway |  available |
++-------------------------+-------------------------------+----------+------------+
+$ aws ec2 describe-nat-gateways (expect none)
+0
+$ aws ec2 describe-security-groups (app + db + default)
+[
+    {
+        "Name": "ticketdesk-poc-db-sg",
+        "Id": "sg-048fa0a7fc678c4ec",
+        "In": [
+            {
+                "p": 5432,
+                "proto": "tcp",
+                "cidr": [],
+                "sg": [
+                    "sg-0712c52175e396700"
+                ],
+                "pl": []
+            }
+        ],
+        "Out": []
+    },
+    {
+        "Name": "default",
+        "Id": "sg-01751d15d0067640a",
+        "In": [],
+        "Out": []
+    },
+    {
+        "Name": "ticketdesk-poc-app-sg",
+        "Id": "sg-0712c52175e396700",
+        "In": [
+            {
+                "p": 80,
+                "proto": "tcp",
+                "cidr": [
+                    "0.0.0.0/0"
+                ],
+                "sg": [],
+                "pl": []
+            }
+        ],
+        "Out": [
+            {
+                "p": 5432,
+                "proto": "tcp",
+                "cidr": [],
+                "sg": [
+                    "sg-048fa0a7fc678c4ec"
+                ]
+            },
+            {
+                "p": 443,
+                "proto": "tcp",
+                "cidr": [
+                    "0.0.0.0/0"
+                ],
+                "sg": []
+            }
+        ]
+    }
+]

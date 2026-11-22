@@ -1,0 +1,23 @@
+$ versions
+python (venv): Python 3.12.16
+python in image: 3.12-slim 
+fastapi            0.165.0
+starlette          1.10.0
+uvicorn            0.34.0
+SQLAlchemy         2.0.36
+psycopg            3.2.3
+Jinja2             3.1.5
+python-multipart   0.0.34
+itsdangerous       2.2.0
+boto3              1.35.90
+pytest             8.3.4
+httpx              0.28.1
+ruff               0.8.4
+terraform: Terraform v1.14.8
+  provider registry.terraform.io/hashicorp/archive v2.8.1
+  provider registry.terraform.io/hashicorp/aws v5.100.0
+  provider registry.terraform.io/hashicorp/random v3.9.1
+docker: 29.9.3 / compose 5.7.1
+aws cli: aws-cli/2.42.1 Python/3.15.2 Darwin/25.5.0 source/arm64
+local postgres image: postgres:16-alpine
+lambda runtime: runtime          = "python3.12"

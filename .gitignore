@@ -1,0 +1,28 @@
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+backend.hcl
+tfplan
+*.tfplan
+crash.log
+terraform/modules/lambda/build/
+# Secrets / env
+.env
+.env.*
+*.pem
+*.csv
+credentials
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+*.db
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

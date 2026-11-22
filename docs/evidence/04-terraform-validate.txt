@@ -1,0 +1,10 @@
+$ terraform fmt -check -recursive terraform
+exit=0
+$ terraform -chdir=terraform/bootstrap validate
+Success! The configuration is valid.
+
+exit=0
+$ terraform -chdir=terraform/envs/dev validate
+Success! The configuration is valid.
+
+exit=0

@@ -1,0 +1,52 @@
+{% extends "base.html" %}{% from "_ui.html" import status, prio, icon %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>Overview</h1>
+    <p>{% if user.role == 'admin' %}All tickets across the service desk.{% else %}Tickets you have raised.{% endif %}</p>
+  </div>
+  <a class="btn" href="/tickets#new">New ticket</a>
+</div>
+
+<div class="stack">
+  <section class="panel" aria-labelledby="counts-h">
+    <h2 id="counts-h" class="visually-hidden">Tickets by status</h2>
+    <div class="counts">
+      {% for s in statuses %}{% set k = s|lower|replace(' ', '-') %}
+      <a class="count" href="/tickets?status={{ s|urlencode }}">
+        <span class="label"><span class="dot dot-{{ k }}" aria-hidden="true"></span>{{ s }}</span>
+        <span class="num">{{ counts[s] }}</span>
+      </a>{% endfor %}
+      <div class="count total">
+        <span class="label">Total</span>
+        <span class="num">{{ total }}</span>
+      </div>
+    </div>
+    {% if total %}
+    <div class="panel-body" style="border-top:1px solid var(--line)">
+      <div class="bar" role="img" aria-label="{% for s in statuses %}{{ s }} {{ counts[s] }}{{ ', ' if not loop.last }}{% endfor %}">
+        {% for s in statuses %}{% if counts[s] %}<span class="dot-{{ s|lower|replace(' ', '-') }}" style="width:{{ (counts[s] * 100 / total)|round(2) }}%"></span>{% endif %}{% endfor %}
+      </div>
+      <div class="legend" aria-hidden="true">
+        {% for s in statuses %}<span><span class="dot dot-{{ s|lower|replace(' ', '-') }}"></span>{{ s }} {{ ((counts[s] * 100 / total)|round|int) }}%</span>{% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </section>
+
+  <section class="panel" aria-labelledby="recent-h">
+    <div class="panel-head"><h2 id="recent-h">Recent tickets</h2><a href="/tickets" class="btn btn-quiet btn-sm">View all {{ icon('arrow', 14) }}</a></div>
+    {% if recent %}
+    <div class="table-wrap"><table>
+      <thead><tr><th scope="col">ID</th><th scope="col">Title</th><th scope="col">Priority</th><th scope="col">Status</th><th scope="col" class="hide-sm">Updated</th></tr></thead>
+      <tbody>{% for t in recent %}
+        <tr><td class="id">#{{ t.id }}</td><td class="title"><a href="/tickets/{{ t.id }}">{{ t.title }}</a></td><td>{{ prio(t.priority) }}</td><td>{{ status(t.status) }}</td><td class="when hide-sm">{{ (t.updated_at or t.created_at).strftime('%d %b %H:%M') }}</td></tr>
+      {% endfor %}</tbody>
+    </table></div>
+    {% else %}
+    <div class="empty"><strong>No tickets yet</strong>When something breaks, raise a ticket and it will show up here.<br><br><a class="btn btn-sm" href="/tickets#new">Raise a ticket</a></div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

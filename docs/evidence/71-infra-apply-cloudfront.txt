@@ -1,0 +1,33 @@
+$ scripts/infra.sh apply   (CloudFront HTTPS plan)
+module.security.aws_vpc_security_group_ingress_rule.app_http["38.183.x.x/32"]: Destroying... [id=sgr-05dc823eae23f08d9]
+module.cdn[0].aws_cloudfront_function.ip_allow: Creating...
+module.compute.aws_instance.app: Destroying... [id=i-032a7a23371c1d73f]
+module.security.aws_vpc_security_group_ingress_rule.app_http_cloudfront[0]: Creating...
+module.security.aws_vpc_security_group_ingress_rule.app_http["38.183.x.x/32"]: Destruction complete after 1s
+module.security.aws_vpc_security_group_ingress_rule.app_http_cloudfront[0]: Creation complete after 1s [id=sgr-030b77386f2bc356e]
+module.cdn[0].aws_cloudfront_function.ip_allow: Creation complete after 4s [id=ticketdesk-poc-ip-allow]
+module.compute.aws_instance.app: Still destroying... [id=i-032a7a23371c1d73f, 00m10s elapsed]
+module.compute.aws_instance.app: Still destroying... [id=i-032a7a23371c1d73f, 00m20s elapsed]
+module.compute.aws_instance.app: Still destroying... [id=i-032a7a23371c1d73f, 00m30s elapsed]
+module.compute.aws_instance.app: Destruction complete after 31s
+module.compute.aws_instance.app: Creating...
+module.compute.aws_instance.app: Still creating... [00m10s elapsed]
+module.compute.aws_instance.app: Creation complete after 13s [id=i-08529028eab175435]
+module.monitoring.aws_cloudwatch_dashboard.main: Modifying... [id=ticketdesk-poc-dashboard]
+module.compute.aws_eip.app: Modifying... [id=eipalloc-0637b5e6fde4597a4]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_status: Modifying... [id=ticketdesk-poc-ec2-status-check-failed]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_cpu: Modifying... [id=ticketdesk-poc-ec2-cpu-high]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_status: Modifications complete after 1s [id=ticketdesk-poc-ec2-status-check-failed]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_cpu: Modifications complete after 1s [id=ticketdesk-poc-ec2-cpu-high]
+module.monitoring.aws_cloudwatch_dashboard.main: Modifications complete after 1s [id=ticketdesk-poc-dashboard]
+module.compute.aws_eip.app: Modifications complete after 2s [id=eipalloc-0637b5e6fde4597a4]
+module.cdn[0].aws_cloudfront_distribution.app: Creating...
+╷
+│ Error: creating CloudFront Distribution: operation error CloudFront: CreateDistributionWithTags, https response error StatusCode: 403, RequestID: e5afe55e-2f84-402f-bcee-d08ba46d53fb, AccessDenied: Your account must be verified before you can add new CloudFront resources. To verify your account, please contact AWS Support (https://console.aws.amazon.com/support/home#/) and include this error message.
+│ 
+│   with module.cdn[0].aws_cloudfront_distribution.app,
+│   on ../../modules/cdn/main.tf line 52, in resource "aws_cloudfront_distribution" "app":
+│   52: resource "aws_cloudfront_distribution" "app" {
+│ 
+╵
+exit=1

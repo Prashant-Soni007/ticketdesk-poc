@@ -1,0 +1,15 @@
+$ routes (from create_app())
+MOUNT      /static
+GET        /health
+GET        /
+GET        /login
+POST       /login
+POST       /logout
+GET        /dashboard
+GET        /api/dashboard
+GET        /tickets
+POST       /tickets
+GET        /tickets/{ticket_id}
+POST       /tickets/{ticket_id}/status
+POST       /tickets/{ticket_id}/attachments
+GET        /attachments/{attachment_id}

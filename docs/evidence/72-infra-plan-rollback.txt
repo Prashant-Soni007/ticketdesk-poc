@@ -1,0 +1,412 @@
+$ scripts/infra.sh plan   (rollback: enable_cloudfront=false)
+module.secrets.random_password.session: Refreshing state... [id=none]
+module.secrets.random_password.admin: Refreshing state... [id=none]
+module.lambda.data.archive_file.zip: Reading...
+module.secrets.random_password.user: Refreshing state... [id=none]
+module.lambda.data.archive_file.zip: Read complete after 0s [id=adc3201c2632f6609eaa7b5eef0723bf268eba24]
+module.lambda.data.aws_iam_policy_document.assume: Reading...
+module.network.data.aws_availability_zones.available: Reading...
+module.storage.data.aws_caller_identity.current: Reading...
+module.monitoring.aws_cloudwatch_log_group.app: Refreshing state... [id=/ticketdesk-poc/app]
+module.cdn[0].aws_cloudfront_function.ip_allow: Refreshing state... [id=ticketdesk-poc-ip-allow]
+module.lambda.aws_cloudwatch_log_group.lambda: Refreshing state... [id=/aws/lambda/ticketdesk-poc-file-processor]
+module.registry.aws_ecr_repository.app: Refreshing state... [id=ticketdesk-poc-app]
+module.secrets.aws_secretsmanager_secret.app: Refreshing state... [id=arn:aws:secretsmanager:ap-south-1:9401****5845:secret:ticketdesk-poc/app-PhyWtt]
+module.network.aws_vpc.this: Refreshing state... [id=vpc-03685702f23aece80]
+module.monitoring.aws_sns_topic.alerts: Refreshing state... [id=arn:aws:sns:ap-south-1:9401****5845:ticketdesk-poc-alerts]
+module.lambda.data.aws_iam_policy_document.assume: Read complete after 0s [id=2690255455]
+module.iam.data.aws_iam_policy_document.ec2_assume: Reading...
+module.iam.data.aws_iam_policy_document.ec2_assume: Read complete after 0s [id=2851119427]
+module.iam.data.aws_caller_identity.current: Reading...
+module.storage.data.aws_caller_identity.current: Read complete after 0s [id=9401****5845]
+module.compute.data.aws_ssm_parameter.al2023_arm64: Reading...
+module.iam.data.aws_caller_identity.current: Read complete after 0s [id=9401****5845]
+module.github_oidc.data.aws_caller_identity.current: Reading...
+module.github_oidc.data.aws_caller_identity.current: Read complete after 0s [id=9401****5845]
+module.lambda.aws_iam_role.lambda: Refreshing state... [id=ticketdesk-poc-lambda-role]
+module.iam.aws_iam_role.ec2: Refreshing state... [id=ticketdesk-poc-ec2-role]
+module.network.data.aws_availability_zones.available: Read complete after 0s [id=ap-south-1]
+module.storage.aws_s3_bucket.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.compute.data.aws_ssm_parameter.al2023_arm64: Read complete after 0s [id=/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64]
+module.secrets.aws_secretsmanager_secret_version.app: Refreshing state... [id=arn:aws:secretsmanager:ap-south-1:9401****5845:secret:ticketdesk-poc/app-PhyWtt|terraform-20261122160457079400000002]
+module.registry.aws_ecr_lifecycle_policy.app: Refreshing state... [id=ticketdesk-poc-app]
+module.monitoring.aws_cloudwatch_log_metric_filter.app_errors: Refreshing state... [id=ticketdesk-poc-app-errors]
+module.monitoring.aws_sns_topic_subscription.email[0]: Refreshing state... [id=arn:aws:sns:ap-south-1:9401****5845:ticketdesk-poc-alerts:da2231df-ca8a-4e6a-8be2-5148802d762c]
+module.monitoring.aws_cloudwatch_metric_alarm.app_errors: Refreshing state... [id=ticketdesk-poc-app-errors]
+module.network.aws_internet_gateway.this: Refreshing state... [id=igw-00fe315c6221b4525]
+module.network.aws_default_security_group.default: Refreshing state... [id=sg-01751d15d0067640a]
+module.network.aws_subnet.public[1]: Refreshing state... [id=subnet-017639257b6f21b5d]
+module.network.aws_route_table.private: Refreshing state... [id=rtb-0cd5ebc319867f86b]
+module.network.aws_subnet.public[0]: Refreshing state... [id=subnet-0996a57a60d4901b2]
+module.network.aws_subnet.private[1]: Refreshing state... [id=subnet-09f6f1cacd920506c]
+module.network.aws_subnet.private[0]: Refreshing state... [id=subnet-0b31151fc07a1d7b9]
+module.security.aws_security_group.app: Refreshing state... [id=sg-0712c52175e396700]
+module.network.aws_route_table.public: Refreshing state... [id=rtb-06c4cc33062ab1abd]
+module.security.aws_security_group.db: Refreshing state... [id=sg-048fa0a7fc678c4ec]
+module.security.aws_vpc_security_group_ingress_rule.app_http_cloudfront[0]: Refreshing state... [id=sgr-030b77386f2bc356e]
+module.security.aws_vpc_security_group_egress_rule.app_https: Refreshing state... [id=sgr-0316b0321a75ee394]
+module.storage.aws_s3_bucket_ownership_controls.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.storage.aws_s3_bucket_public_access_block.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.storage.aws_s3_bucket_lifecycle_configuration.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.storage.aws_s3_bucket_server_side_encryption_configuration.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.storage.data.aws_iam_policy_document.tls_only: Reading...
+module.storage.data.aws_iam_policy_document.tls_only: Read complete after 0s [id=2955477930]
+module.storage.aws_s3_bucket_versioning.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.network.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0f7a41a0f2b609043]
+module.network.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-055427365ea846ee0]
+module.network.aws_vpc_endpoint.s3: Refreshing state... [id=vpce-0943d3ddb905577e8]
+module.network.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-0ef76284bf1bb237e]
+module.network.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-09812ba1f2e2cecfa]
+module.security.aws_vpc_security_group_egress_rule.app_to_db: Refreshing state... [id=sgr-0f5d1afd7a1530b29]
+module.security.aws_vpc_security_group_ingress_rule.db_from_app: Refreshing state... [id=sgr-0b7f54c913e9456a7]
+module.lambda.data.aws_iam_policy_document.perms: Reading...
+module.lambda.data.aws_iam_policy_document.perms: Read complete after 0s [id=208687727]
+module.storage.aws_s3_bucket_policy.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.database.aws_db_subnet_group.this: Refreshing state... [id=ticketdesk-poc-db-subnets]
+module.database.aws_db_instance.this: Refreshing state... [id=db-KHJD3IDYTBOJDDZLEDCMU5Q5T4]
+module.iam.aws_iam_role_policy_attachment.ssm: Refreshing state... [id=ticketdesk-poc-ec2-role-20261122160459202900000003]
+module.lambda.aws_iam_role_policy.lambda: Refreshing state... [id=ticketdesk-poc-lambda-role:ticketdesk-poc-lambda-policy]
+module.iam.aws_iam_instance_profile.ec2: Refreshing state... [id=ticketdesk-poc-ec2-profile]
+module.monitoring.aws_cloudwatch_metric_alarm.rds_cpu: Refreshing state... [id=ticketdesk-poc-rds-cpu-high]
+module.monitoring.aws_cloudwatch_metric_alarm.rds_storage: Refreshing state... [id=ticketdesk-poc-rds-free-storage-low]
+module.iam.data.aws_iam_policy_document.app: Reading...
+module.iam.data.aws_iam_policy_document.app: Read complete after 0s [id=1826735542]
+module.iam.aws_iam_role_policy.app: Refreshing state... [id=ticketdesk-poc-ec2-role:ticketdesk-poc-app-policy]
+module.lambda.aws_lambda_function.processor: Refreshing state... [id=ticketdesk-poc-file-processor]
+module.lambda.aws_lambda_permission.s3: Refreshing state... [id=AllowS3Invoke]
+module.monitoring.aws_cloudwatch_metric_alarm.lambda_errors: Refreshing state... [id=ticketdesk-poc-lambda-errors]
+module.lambda.aws_s3_bucket_notification.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.compute.aws_instance.app: Refreshing state... [id=i-08529028eab175435]
+module.monitoring.aws_cloudwatch_dashboard.main: Refreshing state... [id=ticketdesk-poc-dashboard]
+module.compute.aws_eip.app: Refreshing state... [id=eipalloc-0637b5e6fde4597a4]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_cpu: Refreshing state... [id=ticketdesk-poc-ec2-cpu-high]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_status: Refreshing state... [id=ticketdesk-poc-ec2-status-check-failed]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+  - destroy
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # module.cdn[0].aws_cloudfront_function.ip_allow will be destroyed
+  # (because module.cdn[0] is not in configuration)
+  - resource "aws_cloudfront_function" "ip_allow" {
+      - arn                          = "arn:aws:cloudfront::9401****5845:function/ticketdesk-poc-ip-allow" -> null
+      - code                         = <<-EOT
+            var ALLOWED = ["38.183.x.x/32"];
+            function toInt(ip) {
+              var p = ip.split('.');
+              if (p.length !== 4) return null;
+              return (((+p[0]) << 24) >>> 0) + ((+p[1]) << 16) + ((+p[2]) << 8) + (+p[3]);
+            }
+            function inCidr(ip, cidr) {
+              var parts = cidr.split('/');
+              var bits = parts.length > 1 ? parseInt(parts[1], 10) : 32;
+              var a = toInt(ip), b = toInt(parts[0]);
+              if (a === null || b === null) return false;
+              if (bits === 0) return true;
+              var mask = (0xFFFFFFFF << (32 - bits)) >>> 0;
+              return ((a & mask) >>> 0) === ((b & mask) >>> 0);
+            }
+            function handler(event) {
+              var ip = event.viewer.ip;
+              for (var i = 0; i < ALLOWED.length; i++) {
+                if (inCidr(ip, ALLOWED[i])) return event.request;
+              }
+              return { statusCode: 403, statusDescription: 'Forbidden' };
+            }
+        EOT -> null
+      - comment                      = "Allow only var.allowed_cidrs" -> null
+      - etag                         = "ETVPDKIKX0DER" -> null
+      - id                           = "ticketdesk-poc-ip-allow" -> null
+      - key_value_store_associations = [] -> null
+      - live_stage_etag              = "ETVPDKIKX0DER" -> null
+      - name                         = "ticketdesk-poc-ip-allow" -> null
+      - publish                      = true -> null
+      - runtime                      = "cloudfront-js-2.0" -> null
+      - status                       = "UNASSOCIATED" -> null
+    }
+
+  # module.compute.aws_eip.app will be updated in-place
+  ~ resource "aws_eip" "app" {
+        id                       = "eipalloc-0637b5e6fde4597a4"
+      ~ instance                 = "i-08529028eab175435" -> (known after apply)
+        tags                     = {
+            "Name" = "ticketdesk-poc-eip"
+        }
+        # (17 unchanged attributes hidden)
+    }
+
+  # module.compute.aws_instance.app must be replaced
+-/+ resource "aws_instance" "app" {
+      ~ arn                                  = "arn:aws:ec2:ap-south-1:9401****5845:instance/i-08529028eab175435" -> (known after apply)
+      ~ availability_zone                    = "ap-south-1a" -> (known after apply)
+      ~ cpu_core_count                       = 2 -> (known after apply)
+      ~ cpu_threads_per_core                 = 1 -> (known after apply)
+      ~ disable_api_stop                     = false -> (known after apply)
+      ~ disable_api_termination              = false -> (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      - hibernation                          = false -> null
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      ~ id                                   = "i-08529028eab175435" -> (known after apply)
+      ~ instance_initiated_shutdown_behavior = "stop" -> (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      ~ instance_state                       = "running" -> (known after apply)
+      ~ ipv6_address_count                   = 0 -> (known after apply)
+      ~ ipv6_addresses                       = [] -> (known after apply)
+      + key_name                             = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      ~ placement_partition_number           = 0 -> (known after apply)
+      ~ primary_network_interface_id         = "eni-09e5e39b809827bb5" -> (known after apply)
+      ~ private_dns                          = "ip-10-0-1-87.ap-south-1.compute.internal" -> (known after apply)
+      ~ private_ip                           = "10.0.1.87" -> (known after apply)
+      ~ public_dns                           = "ec2-13-203-87-250.ap-south-1.compute.amazonaws.com" -> (known after apply)
+      ~ public_ip                            = "13.203.87.250" -> (known after apply)
+      ~ secondary_private_ips                = [] -> (known after apply)
+      ~ security_groups                      = [] -> (known after apply)
+      + spot_instance_request_id             = (known after apply)
+        tags                                 = {
+            "Name" = "ticketdesk-poc-app"
+        }
+      ~ tenancy                              = "default" -> (known after apply)
+      ~ user_data                            = "31d1d5bc62a298df8eca0e63e42cafb5c2cc536e" -> "352a315da4277dfa053fb3e32ad47e109e0dadf5" # forces replacement
+      + user_data_base64                     = (known after apply)
+        # (12 unchanged attributes hidden)
+
+      ~ capacity_reservation_specification (known after apply)
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      ~ cpu_options (known after apply)
+      - cpu_options {
+          - core_count       = 2 -> null
+          - threads_per_core = 1 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "unlimited" -> null
+        }
+
+      ~ ebs_block_device (known after apply)
+
+      ~ enclave_options (known after apply)
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      ~ ephemeral_block_device (known after apply)
+
+      ~ instance_market_options (known after apply)
+
+      ~ maintenance_options (known after apply)
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      ~ metadata_options {
+          ~ instance_metadata_tags      = "disabled" -> (known after apply)
+            # (4 unchanged attributes hidden)
+        }
+
+      ~ network_interface (known after apply)
+
+      ~ private_dns_name_options (known after apply)
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      ~ root_block_device {
+          ~ device_name           = "/dev/xvda" -> (known after apply)
+          ~ iops                  = 3000 -> (known after apply)
+          ~ kms_key_id            = "arn:aws:kms:ap-south-1:9401****5845:key/31aebd88-eef0-4a0d-bee0-3d430f24ee59" -> (known after apply)
+          - tags                  = {} -> null
+          ~ tags_all              = {
+              - "Environment" = "dev"
+              - "ManagedBy"   = "terraform"
+              - "Project"     = "ticketdesk-poc"
+            } -> (known after apply)
+          ~ throughput            = 125 -> (known after apply)
+          ~ volume_id             = "vol-06092d267ac61a1aa" -> (known after apply)
+            # (4 unchanged attributes hidden)
+        }
+    }
+
+  # module.monitoring.aws_cloudwatch_dashboard.main will be updated in-place
+  ~ resource "aws_cloudwatch_dashboard" "main" {
+      ~ dashboard_body = jsonencode(
+            {
+              - widgets = [
+                  - {
+                      - height     = 6
+                      - properties = {
+                          - metrics = [
+                              - [
+                                  - "AWS/EC2",
+                                  - "CPUUtilization",
+                                  - "InstanceId",
+                                  - "i-08529028eab175435",
+                                ],
+                            ]
+                          - period  = 300
+                          - region  = "ap-south-1"
+                          - stat    = "Average"
+                          - title   = "EC2 CPU %"
+                        }
+                      - type       = "metric"
+                      - width      = 12
+                      - x          = 0
+                      - y          = 0
+                    },
+                  - {
+                      - height     = 6
+                      - properties = {
+                          - metrics = [
+                              - [
+                                  - "AWS/RDS",
+                                  - "CPUUtilization",
+                                  - "DBInstanceIdentifier",
+                                  - "ticketdesk-poc-db",
+                                ],
+                              - [
+                                  - "AWS/RDS",
+                                  - "DatabaseConnections",
+                                  - "DBInstanceIdentifier",
+                                  - "ticketdesk-poc-db",
+                                ],
+                            ]
+                          - period  = 300
+                          - region  = "ap-south-1"
+                          - stat    = "Average"
+                          - title   = "RDS CPU % and connections"
+                        }
+                      - type       = "metric"
+                      - width      = 12
+                      - x          = 12
+                      - y          = 0
+                    },
+                  - {
+                      - height     = 6
+                      - properties = {
+                          - metrics = [
+                              - [
+                                  - "AWS/Lambda",
+                                  - "Invocations",
+                                  - "FunctionName",
+                                  - "ticketdesk-poc-file-processor",
+                                ],
+                              - [
+                                  - "AWS/Lambda",
+                                  - "Errors",
+                                  - "FunctionName",
+                                  - "ticketdesk-poc-file-processor",
+                                ],
+                            ]
+                          - period  = 300
+                          - region  = "ap-south-1"
+                          - stat    = "Sum"
+                          - title   = "Lambda invocations / errors"
+                        }
+                      - type       = "metric"
+                      - width      = 12
+                      - x          = 0
+                      - y          = 6
+                    },
+                  - {
+                      - height     = 6
+                      - properties = {
+                          - query  = "SOURCE '/ticketdesk-poc/app' | fields @timestamp, @message | sort @timestamp desc | limit 30"
+                          - region = "ap-south-1"
+                          - title  = "Recent application logs"
+                          - view   = "table"
+                        }
+                      - type       = "log"
+                      - width      = 12
+                      - x          = 12
+                      - y          = 6
+                    },
+                ]
+            }
+        ) -> (known after apply)
+        id             = "ticketdesk-poc-dashboard"
+        # (2 unchanged attributes hidden)
+    }
+
+  # module.monitoring.aws_cloudwatch_metric_alarm.ec2_cpu will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "ec2_cpu" {
+      ~ dimensions                            = {
+          - "InstanceId" = "i-08529028eab175435"
+        } -> (known after apply)
+        id                                    = "ticketdesk-poc-ec2-cpu-high"
+        tags                                  = {}
+        # (21 unchanged attributes hidden)
+    }
+
+  # module.monitoring.aws_cloudwatch_metric_alarm.ec2_status will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "ec2_status" {
+      ~ dimensions                            = {
+          - "InstanceId" = "i-08529028eab175435"
+        } -> (known after apply)
+        id                                    = "ticketdesk-poc-ec2-status-check-failed"
+        tags                                  = {}
+        # (21 unchanged attributes hidden)
+    }
+
+  # module.security.aws_vpc_security_group_ingress_rule.app_http["38.183.x.x/32"] will be created
+  + resource "aws_vpc_security_group_ingress_rule" "app_http" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "38.183.x.x/32"
+      + description            = "HTTP to app"
+      + from_port              = 80
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + security_group_id      = "sg-0712c52175e396700"
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ticketdesk-poc"
+        }
+      + to_port                = 80
+    }
+
+  # module.security.aws_vpc_security_group_ingress_rule.app_http_cloudfront[0] will be destroyed
+  # (because index [0] is out of range for count)
+  - resource "aws_vpc_security_group_ingress_rule" "app_http_cloudfront" {
+      - arn                    = "arn:aws:ec2:ap-south-1:9401****5845:security-group-rule/sgr-030b77386f2bc356e" -> null
+      - description            = "HTTP from CloudFront origin-facing IPs only" -> null
+      - from_port              = 80 -> null
+      - id                     = "sgr-030b77386f2bc356e" -> null
+      - ip_protocol            = "tcp" -> null
+      - prefix_list_id         = "pl-9aa247f3" -> null
+      - security_group_id      = "sg-0712c52175e396700" -> null
+      - security_group_rule_id = "sgr-030b77386f2bc356e" -> null
+      - tags_all               = {
+          - "Environment" = "dev"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "ticketdesk-poc"
+        } -> null
+      - to_port                = 80 -> null
+    }
+
+Plan: 2 to add, 4 to change, 3 to destroy.
+
+Changes to Outputs:
+  + cloudfront_distribution_id = ""
+  ~ instance_id                = "i-08529028eab175435" -> (known after apply)
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "tfplan"

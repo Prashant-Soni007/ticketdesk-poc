@@ -1,0 +1,11 @@
+output "app_url" { value = var.enable_cloudfront ? module.cdn[0].url : module.compute.app_url }
+output "origin_url" { value = module.compute.app_url } # direct EC2 (only CloudFront can reach it when enabled)
+output "cloudfront_distribution_id" { value = var.enable_cloudfront ? module.cdn[0].distribution_id : "" }
+output "instance_id" { value = module.compute.instance_id }
+output "ecr_repository_url" { value = module.registry.repository_url }
+output "attachments_bucket" { value = module.storage.bucket_id }
+output "rds_endpoint" { value = module.database.address }
+output "app_secret_arn" { value = module.secrets.app_secret_arn }
+output "lambda_function" { value = module.lambda.function_name }
+output "app_log_group" { value = local.log_group_name }
+output "github_deploy_role_arn" { value = module.github_oidc.deploy_role_arn }

@@ -1,0 +1,66 @@
+{% extends "base.html" %}{% from "_ui.html" import status, prio, icon %}
+{% block title %}#{{ ticket.id }} {{ ticket.title }}{% endblock %}
+{% block content %}
+<a class="crumb" href="/tickets">{{ icon('back', 14) }}All tickets</a>
+<div class="page-head">
+  <div class="ticket-title"><span class="mono">#{{ ticket.id }}</span><h1>{{ ticket.title }}</h1>{{ status(ticket.status) }}</div>
+  {% if user.role == 'admin' and next_status %}
+  <form method="post" action="/tickets/{{ ticket.id }}/status">
+    <input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="status" value="{{ next_status }}">
+    <button class="btn">Move to {{ next_status }} {{ icon('arrow', 14) }}</button>
+  </form>
+  {% endif %}
+</div>
+
+<div class="split">
+  <div class="stack">
+    <section class="panel" aria-labelledby="desc-h">
+      <div class="panel-head"><h2 id="desc-h">Description</h2></div>
+      <div class="panel-body"><p class="desc">{{ ticket.description }}</p></div>
+    </section>
+
+    <section class="panel" aria-labelledby="att-h">
+      <div class="panel-head"><h2 id="att-h">Attachments</h2><span class="muted mono">{{ ticket.attachments|length }}</span></div>
+      <div class="panel-body">
+        {% if error %}<div class="alert" role="alert">{{ icon('alert') }}<span>{{ error }}</span></div>{% endif %}
+        {% if ticket.attachments %}
+        <ul class="files">{% for a in ticket.attachments %}
+          <li>{{ icon('file') }}<a href="/attachments/{{ a.id }}">{{ a.filename }}</a><span class="size">{{ a.size|filesizeformat }}</span></li>{% endfor %}
+        </ul>
+        {% else %}<p class="muted" style="margin:0">No files attached.</p>{% endif %}
+        <form class="upload" method="post" action="/tickets/{{ ticket.id }}/attachments" enctype="multipart/form-data">
+          <input type="hidden" name="csrf" value="{{ csrf }}">
+          <label class="visually-hidden" for="file">File</label>
+          <input id="file" type="file" name="file" accept=".png,.jpg,.jpeg,.pdf,.txt,.log" required aria-describedby="file-help">
+          <button class="btn btn-quiet btn-sm">{{ icon('upload', 14) }}Upload</button>
+          <small id="file-help" class="muted" style="width:100%;font-size:.8125rem">PNG, JPG, PDF, TXT or LOG, up to 5 MB.</small>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <aside class="stack">
+    <section class="panel" aria-labelledby="prog-h">
+      <div class="panel-head"><h2 id="prog-h">Progress</h2></div>
+      <div class="panel-body">
+        {% set cur = statuses.index(ticket.status) %}
+        <ol class="steps">{% for s in statuses %}
+          <li class="{{ 'done' if loop.index0 < cur else '' }}{{ ' current' if loop.index0 == cur else '' }}"{% if loop.index0 == cur %} aria-current="step"{% endif %}>{{ s }}</li>{% endfor %}
+        </ol>
+        {% if user.role != 'admin' and next_status %}<p class="muted" style="font-size:.8125rem;margin:var(--sp-4) 0 0">The service desk moves tickets forward as they work on them.</p>{% endif %}
+      </div>
+    </section>
+    <section class="panel" aria-labelledby="det-h">
+      <div class="panel-head"><h2 id="det-h">Details</h2></div>
+      <div class="panel-body">
+        <dl class="meta">
+          <dt>Priority</dt><dd>{{ prio(ticket.priority) }}</dd>
+          <dt>Raised by</dt><dd>{{ ticket.owner.username }}</dd>
+          <dt>Created</dt><dd class="mono">{{ ticket.created_at.strftime('%d %b %Y, %H:%M') }}</dd>
+          <dt>Updated</dt><dd class="mono">{{ (ticket.updated_at or ticket.created_at).strftime('%d %b %Y, %H:%M') }}</dd>
+        </dl>
+      </div>
+    </section>
+  </aside>
+</div>
+{% endblock %}

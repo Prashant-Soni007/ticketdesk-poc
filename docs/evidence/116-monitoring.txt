@@ -1,0 +1,24 @@
+$ aws logs describe-log-groups (ticketdesk-poc)
+-----------------------------------------------------------------
+|                       DescribeLogGroups                       |
++--------------------------------------------------+-------+----+
+|  /aws/lambda/ticketdesk-poc-file-processor       |  14   |  0 |
+|  /aws/rds/instance/ticketdesk-poc-db/postgresql  |  None |  0 |
+|  /ticketdesk-poc/app                             |  14   |  0 |
++--------------------------------------------------+-------+----+
+$ aws cloudwatch describe-alarms
+----------------------------------------------------------------------------------------------------------------------------------------------------
+|                                                                  DescribeAlarms                                                                  |
++-----------------------------------------+-------------+--------------------+----------+-----------------------+---------------+------+----+------+
+|  ticketdesk-poc-app-errors              |  TicketDesk |  AppErrors         |  Sum     |  GreaterThanThreshold |  5.0          |  300 |  1 |  OK  |
+|  ticketdesk-poc-ec2-cpu-high            |  AWS/EC2    |  CPUUtilization    |  Average |  GreaterThanThreshold |  80.0         |  300 |  2 |  OK  |
+|  ticketdesk-poc-ec2-status-check-failed |  AWS/EC2    |  StatusCheckFailed |  Maximum |  GreaterThanThreshold |  0.0          |  60  |  2 |  OK  |
+|  ticketdesk-poc-lambda-errors           |  AWS/Lambda |  Errors            |  Sum     |  GreaterThanThreshold |  0.0          |  300 |  1 |  OK  |
+|  ticketdesk-poc-rds-cpu-high            |  AWS/RDS    |  CPUUtilization    |  Average |  GreaterThanThreshold |  80.0         |  300 |  2 |  OK  |
+|  ticketdesk-poc-rds-free-storage-low    |  AWS/RDS    |  FreeStorageSpace  |  Minimum |  LessThanThreshold    |  2147483648.0 |  300 |  1 |  OK  |
++-----------------------------------------+-------------+--------------------+----------+-----------------------+---------------+------+----+------+
+$ aws cloudwatch list-dashboards
+ticketdesk-poc-dashboard
+$ aws sns list-subscriptions-by-topic
+email	<alert-email>	arn:aws:sns:ap-south-1:9401****5845:ticketdesk-poc-alerts:da2231df-ca8a-4e6a-8be2-5148802d762c
+confirmed/pending: 1	0

@@ -1,0 +1,22 @@
+$ scripts/infra.sh apply   (dev.tfvars plan)
+module.security.aws_vpc_security_group_ingress_rule.app_http["0.0.0.0/0"]: Destroying... [id=sgr-0427f3258bb2e2464]
+module.monitoring.aws_sns_topic_subscription.email[0]: Creating...
+module.security.aws_vpc_security_group_ingress_rule.app_http["38.183.x.x/32"]: Creating...
+module.monitoring.aws_sns_topic_subscription.email[0]: Creation complete after 1s [id=arn:aws:sns:ap-south-1:9401****5845:ticketdesk-poc-alerts:da2231df-ca8a-4e6a-8be2-5148802d762c]
+module.security.aws_vpc_security_group_ingress_rule.app_http["38.183.x.x/32"]: Creation complete after 1s [id=sgr-05dc823eae23f08d9]
+module.security.aws_vpc_security_group_ingress_rule.app_http["0.0.0.0/0"]: Destruction complete after 1s
+
+Apply complete! Resources: 2 added, 0 changed, 1 destroyed.
+
+Outputs:
+
+app_log_group = "/ticketdesk-poc/app"
+app_secret_arn = "arn:aws:secretsmanager:ap-south-1:9401****5845:secret:ticketdesk-poc/app-PhyWtt"
+app_url = "http://13.203.87.250"
+attachments_bucket = "ticketdesk-poc-attachments-9401****5845"
+ecr_repository_url = "9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app"
+github_deploy_role_arn = ""
+instance_id = "i-032a7a23371c1d73f"
+lambda_function = "ticketdesk-poc-file-processor"
+rds_endpoint = "ticketdesk-poc-db.cr4euoigchpi.ap-south-1.rds.amazonaws.com"
+exit=0

@@ -1,0 +1,21 @@
+$ aws pricing get-products (pricing API endpoint us-east-1; ap-south-1 On-Demand list prices)
+-- EC2 t4g.micro Linux shared
+  0.0056000000 USD per Hrs | $0.0056 per On Demand Linux t4g.micro Instance Hour
+-- EBS gp3 storage
+  0.0912000000 USD per GB-Mo | $0.0912 per GB-month of General Purpose (gp3) provisioned storage - Asia Pacific (Mumbai)
+-- Public IPv4 address
+  0.0050000000 USD per Hrs | $0.005 per Idle public IPv4 address per hour
+  0.0050000000 USD per Hrs | $0.005 per In-use public IPv4 address per hour
+-- RDS db.t4g.micro PostgreSQL Single-AZ
+  0.0210000000 USD per Hrs | $ 0.021 per RDS db.t4g.micro Single-AZ unused capacity reservation hour (or partial hour) for P
+  0.0210000000 USD per Hrs | $ 0.021 per RDS db.t4g.micro Single-AZ instance hour (or partial hour) running PostgreSQL
+-- RDS gp3 storage
+  0.1310000000 USD per GB-Mo | $0.131 per GB-month of provisioned GP3 storage running PostgreSQL
+-- Secrets Manager
+  0.4000000000 USD per Secrets | $0.40 per Secret
+  0.0000050000 USD per API Requests | $0.05 per 10000 API Requests
+-- CloudWatch alarms
+  0.3000000000 USD per Alarms | $0.30 per alarm metric month (high resolution) - Asia Pacific (Mumbai)
+  0.5000000000 USD per Alarms | $0.50 per composite alarm month - Asia Pacific (Mumbai)
+  0.1000000000 USD per Alarms | $0.10 per alarm metric month (standard resolution) - Asia Pacific (Mumbai)
+-- CloudWatch dashboards

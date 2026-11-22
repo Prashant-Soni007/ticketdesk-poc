@@ -1,0 +1,14 @@
+$ gitleaks detect --source . --no-git --redact   (after AWS deploy; includes docs/evidence)
+9:53PM INF scanned ~535260 bytes (535.26 KB) in 87.8ms
+9:53PM INF no leaks found
+exit=0
+
+$ git check-ignore (files that must never be committed)
+ignored  terraform/envs/dev/backend.hcl
+ignored  terraform/envs/dev/tfplan
+ignored  terraform/bootstrap/terraform.tfstate
+ignored  terraform/envs/dev/.terraform
+ignored  app/.venv
+ignored  terraform/modules/lambda/build/file_processor.zip
+$ git status --porcelain --ignored=no | would-be-committed files matching secrets patterns
+none

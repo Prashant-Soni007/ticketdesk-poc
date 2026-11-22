@@ -1,0 +1,10 @@
+$ aws sns list-subscriptions-by-topic
+subscriptions: 0  (no alert_email set)
+$ aws cloudwatch set-alarm-state --alarm-name ticketdesk-poc-app-errors --state-value ALARM   (alarm-path test)
+ok
+$ aws cloudwatch describe-alarm-history --alarm-name ticketdesk-poc-app-errors
+2026-11-22T21:55:08.597000+05:30	Action	Successfully executed action arn:aws:sns:ap-south-1:9401****5845:ticketdesk-poc-alerts
+2026-11-22T21:55:08.563000+05:30	StateUpdate	Alarm updated from OK to ALARM
+2026-11-22T21:36:00.922000+05:30	StateUpdate	Alarm updated from INSUFFICIENT_DATA to OK
+2026-11-22T21:34:44.013000+05:30	ConfigurationUpdate	Alarm "ticketdesk-poc-app-errors" created
+$ SNS NumberOfMessagesPublished (last 15 min)

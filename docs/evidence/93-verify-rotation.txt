@@ -1,0 +1,27 @@
+$ compare sha256 prefixes of secret values (values never printed)
+user_password : old=9fe7dbf5ef94 new=e95f060b685d CHANGED
+admin_password: old=5cad7c1b41c9 new=0ef1b3db1317 CHANGED
+$ aws logs filter-log-events /ticketdesk-poc/app "seed password updated"
+{"time":"2026-11-22 16:55:03,209","level":"INFO","msg":"seed password updated from secret for user=admin"}
+{"time":"2026-11-22 16:55:03,331","level":"INFO","msg":"seed password updated from secret for user=user"}
+$ scripts/smoke_test.sh   (new passwords from the secret)
+PASS  health + database up
+PASS  user login
+PASS  bad login rejected
+PASS  anonymous redirected to login
+PASS  ticket created (/tickets/5)
+PASS  attachment uploaded
+PASS  attachment download matches upload (/attachments/5)
+PASS  object present in S3 (tickets/5/)
+waiting for Lambda log...
+PASS  Lambda processed upload
+PASS  normal user cannot change status (403)
+PASS  admin login
+PASS  invalid transition Open -> Closed rejected (422)
+PASS  status Open -> In Progress
+PASS  status In Progress -> Resolved
+PASS  status Resolved -> Closed
+PASS  no transition out of Closed (422)
+PASS  dashboard reflects status ({"counts":{"Open":0,"In Progress":0,"Resolved":0,"Closed":5},"total":5})
+ALL CHECKS PASSED
+exit=0

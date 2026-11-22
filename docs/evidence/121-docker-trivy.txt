@@ -1,0 +1,14 @@
+$ docker build -t ticketdesk-poc-app:latest app   (current source)
+sha256:8fdf22b74fe637e2701da52ef22c9738dd0634613e9653682e74e30aa52a2581
+$ docker image inspect (size, user, healthcheck, arch)
+size=411933965 bytes  user=appuser  arch=arm64  healthcheck=[CMD-SHELL python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health').status==200 else 1)"]
+repo=ticketdesk-poc-app tag=latest size=412MB
+$ trivy image --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL (counts)
+lang-pkgs    LOW       total=  1  fixable=1
+lang-pkgs    MEDIUM    total=  6  fixable=6
+os-pkgs      HIGH      total= 50  fixable=0
+os-pkgs      LOW       total= 79  fixable=0
+os-pkgs      MEDIUM    total= 74  fixable=0
+os-pkgs      UNKNOWN   total=  7  fixable=0
+$ trivy image --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1
+exit=0 (0 = no fixable HIGH/CRITICAL)

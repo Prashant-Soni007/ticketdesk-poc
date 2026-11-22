@@ -1,0 +1,35 @@
+$ aws ec2 describe-instances --instance-ids i-02a5df5a8535b1b31
+{
+    "Type": "t4g.micro",
+    "AMI": "ami-09d0edabd3b722f64",
+    "State": "running",
+    "Launched": "2026-11-22T16:42:37+00:00",
+    "Arch": "arm64",
+    "IMDS": "required",
+    "HopLimit": 2,
+    "EbsOptimized": true,
+    "Profile": "arn:aws:iam::9401****5845:instance-profile/ticketdesk-poc-ec2-profile",
+    "Subnet": "subnet-0996a57a60d4901b2",
+    "PublicIp": "13.203.87.250",
+    "SGs": [
+        "sg-0712c52175e396700"
+    ],
+    "KeyName": null
+}
+$ aws ec2 describe-images ami-09d0edabd3b722f64
+al2023-ami-2023.12.20261120.0-kernel-6.18-arm64	2026-11-20T00:33:36.000Z
+$ aws ec2 describe-volumes (root volume)
+vol-07eb8e9cbe38c63b9	gp3	20	True
+$ aws ec2 describe-addresses (Elastic IP)
+13.203.87.250	eipalloc-0637b5e6fde4597a4	vpc
+$ aws ssm describe-instance-information
+Online	Amazon Linux	3.3.5828.0
+$ aws ecr describe-images (latest 5)
+manual-20261122170603	2026-11-22T22:35:54.999000+05:30	93709433
+manual-20261122165502	2026-11-22T22:24:56.734000+05:30	93701749
+manual-20261122162130	2026-11-22T21:51:21.228000+05:30	93701559
+manual-20261122161738	2026-11-22T21:47:41.351000+05:30	93700986
+$ aws ecr describe-repositories
+IMMUTABLE	True	AES256
+$ curl /health
+{"status":"ok","database":"up"}

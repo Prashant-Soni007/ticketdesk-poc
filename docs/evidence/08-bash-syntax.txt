@@ -1,0 +1,5 @@
+$ bash -n scripts/*.sh
+ok  scripts/bootstrap.sh
+ok  scripts/deploy.sh
+ok  scripts/infra.sh
+ok  scripts/smoke_test.sh

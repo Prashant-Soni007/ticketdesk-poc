@@ -1,0 +1,12 @@
+$ docker compose down -v
+ Container ticketdesk-poc-app-1 Stopping 
+ Container ticketdesk-poc-app-1 Stopped 
+ Container ticketdesk-poc-app-1 Removing 
+ Container ticketdesk-poc-app-1 Removed 
+ Container ticketdesk-poc-db-1 Stopping 
+ Container ticketdesk-poc-db-1 Stopped 
+ Container ticketdesk-poc-db-1 Removing 
+ Container ticketdesk-poc-db-1 Removed 
+ Network ticketdesk-poc_default Removing 
+ Network ticketdesk-poc_default Removed 
+exit=0

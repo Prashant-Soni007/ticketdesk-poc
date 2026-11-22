@@ -1,0 +1,19 @@
+$ curl http://13.203.87.250/health   (before reboot)
+{"status":"ok","database":"up"}
+$ aws ec2 reboot-instances --instance-ids i-032a7a23371c1d73f   (16:23:15Z)
+reboot requested
+app went down during reboot: yes
+$ curl http://13.203.87.250/health   (after reboot, 16:23:46Z)
+{"status":"ok","database":"up"}
+$ SSM: container status + uptime after reboot
+Success	2026-11-22 16:23:18
+ticketdesk 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:manual-20261122162130 Up 8 seconds (health: starting)
+
+$ ~60s after reboot: container state
+16:24:34
+ticketdesk Up About a minute (healthy)
+restarts=0 started=2026-11-22T16:23:25.384160928Z
+
+local time: 16:24:54
+$ curl http://13.203.87.250/health
+{"status":"ok","database":"up"}

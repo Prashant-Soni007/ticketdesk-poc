@@ -1,0 +1,24 @@
+$ terraform apply bootstrap.tfplan
+aws_s3_bucket.state: Creating...
+aws_s3_bucket.state: Creation complete after 2s [id=ticketdesk-poc-tfstate-9401****5845]
+aws_s3_bucket_public_access_block.state: Creating...
+aws_s3_bucket_versioning.state: Creating...
+aws_s3_bucket_server_side_encryption_configuration.state: Creating...
+aws_s3_bucket_public_access_block.state: Creation complete after 1s [id=ticketdesk-poc-tfstate-9401****5845]
+aws_s3_bucket_server_side_encryption_configuration.state: Creation complete after 1s [id=ticketdesk-poc-tfstate-9401****5845]
+aws_s3_bucket_versioning.state: Creation complete after 2s [id=ticketdesk-poc-tfstate-9401****5845]
+
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+backend_hcl = <<EOT
+bucket       = "ticketdesk-poc-tfstate-9401****5845"
+key          = "ticketdesk-poc/dev/terraform.tfstate"
+region       = "ap-south-1"
+encrypt      = true
+use_lockfile = true
+
+EOT
+state_bucket = "ticketdesk-poc-tfstate-9401****5845"
+exit=0

@@ -1,0 +1,39 @@
+$ scripts/infra.sh apply   (rollback to HTTP)
+module.security.aws_vpc_security_group_ingress_rule.app_http_cloudfront[0]: Destroying... [id=sgr-030b77386f2bc356e]
+module.cdn[0].aws_cloudfront_function.ip_allow: Destroying... [id=ticketdesk-poc-ip-allow]
+module.compute.aws_instance.app: Destroying... [id=i-08529028eab175435]
+module.security.aws_vpc_security_group_ingress_rule.app_http["38.183.x.x/32"]: Creating...
+module.security.aws_vpc_security_group_ingress_rule.app_http_cloudfront[0]: Destruction complete after 0s
+module.security.aws_vpc_security_group_ingress_rule.app_http["38.183.x.x/32"]: Creation complete after 0s [id=sgr-0e569bb77511b37a0]
+module.cdn[0].aws_cloudfront_function.ip_allow: Destruction complete after 2s
+module.compute.aws_instance.app: Still destroying... [id=i-08529028eab175435, 00m10s elapsed]
+module.compute.aws_instance.app: Still destroying... [id=i-08529028eab175435, 00m20s elapsed]
+module.compute.aws_instance.app: Destruction complete after 20s
+module.compute.aws_instance.app: Creating...
+module.compute.aws_instance.app: Still creating... [00m10s elapsed]
+module.compute.aws_instance.app: Creation complete after 13s [id=i-02a5df5a8535b1b31]
+module.monitoring.aws_cloudwatch_dashboard.main: Modifying... [id=ticketdesk-poc-dashboard]
+module.compute.aws_eip.app: Modifying... [id=eipalloc-0637b5e6fde4597a4]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_status: Modifying... [id=ticketdesk-poc-ec2-status-check-failed]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_cpu: Modifying... [id=ticketdesk-poc-ec2-cpu-high]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_cpu: Modifications complete after 0s [id=ticketdesk-poc-ec2-cpu-high]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_status: Modifications complete after 0s [id=ticketdesk-poc-ec2-status-check-failed]
+module.monitoring.aws_cloudwatch_dashboard.main: Modifications complete after 1s [id=ticketdesk-poc-dashboard]
+module.compute.aws_eip.app: Modifications complete after 1s [id=eipalloc-0637b5e6fde4597a4]
+
+Apply complete! Resources: 2 added, 4 changed, 3 destroyed.
+
+Outputs:
+
+app_log_group = "/ticketdesk-poc/app"
+app_secret_arn = "arn:aws:secretsmanager:ap-south-1:9401****5845:secret:ticketdesk-poc/app-PhyWtt"
+app_url = "http://13.203.87.250"
+attachments_bucket = "ticketdesk-poc-attachments-9401****5845"
+cloudfront_distribution_id = ""
+ecr_repository_url = "9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app"
+github_deploy_role_arn = ""
+instance_id = "i-02a5df5a8535b1b31"
+lambda_function = "ticketdesk-poc-file-processor"
+origin_url = "http://13.203.87.250"
+rds_endpoint = "ticketdesk-poc-db.cr4euoigchpi.ap-south-1.rds.amazonaws.com"
+exit=0

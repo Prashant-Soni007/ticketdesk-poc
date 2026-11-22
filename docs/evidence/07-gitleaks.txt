@@ -1,0 +1,4 @@
+$ gitleaks detect --source . --no-git --redact
+9:27PM INF scanned ~308448 bytes (308.45 KB) in 48.5ms
+9:27PM INF no leaks found
+exit=0

@@ -1,0 +1,41 @@
+$ aws rds describe-db-instances --db-instance-identifier ticketdesk-poc-db
+{
+    "Engine": "postgres",
+    "Version": "16.13",
+    "Class": "db.t4g.micro",
+    "StorageGB": 20,
+    "MaxStorageGB": 30,
+    "StorageType": "gp3",
+    "Encrypted": true,
+    "MultiAZ": false,
+    "PubliclyAccessible": false,
+    "BackupRetentionDays": 1,
+    "BackupWindow": "21:00-22:00",
+    "DeletionProtection": false,
+    "SubnetGroup": "ticketdesk-poc-db-subnets",
+    "Subnets": [
+        "subnet-0b31151fc07a1d7b9",
+        "subnet-09f6f1cacd920506c"
+    ],
+    "SecurityGroups": [
+        "sg-048fa0a7fc678c4ec"
+    ],
+    "MasterUserSecretStatus": "active",
+    "LogExports": [
+        "postgresql"
+    ],
+    "ParameterGroup": "default.postgres16",
+    "Status": "available",
+    "LatestRestorableTime": "2026-11-22T17:20:57+00:00",
+    "CACert": "rds-ca-rsa2048-g1"
+}
+$ aws rds describe-db-parameters --db-parameter-group-name default.postgres16 (rds.force_ssl)
+rds.force_ssl	1	system
+$ RDS secret rotation (RDS-managed secret; values not read)
+{
+    "Name": "rds!db-0286b81b-61b2-4bdf-b56c-5da91c506e9d",
+    "RotationEnabled": true,
+    "RotationDays": 7,
+    "OwningService": "rds",
+    "LastRotated": "2026-11-22T21:39:43.548000+05:30"
+}
