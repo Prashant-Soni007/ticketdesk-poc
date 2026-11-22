@@ -1,0 +1,106 @@
+$ scripts/deploy.sh   (deploy after rotation #2)
+==> Building and pushing 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:eaed5ab-20261122203807 (linux/arm64)
+Login Succeeded
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.08kB done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 ...
+
+#3 [auth] docker/dockerfile:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 1.8s
+
+#4 docker-image://docker.io/docker/dockerfile:1@sha256:572cebbc2b15e6f84c077742952674889cb63cd5e9b80abdffcbe587b6f19183
+#4 resolve docker.io/docker/dockerfile:1@sha256:572cebbc2b15e6f84c077742952674889cb63cd5e9b80abdffcbe587b6f19183 done
+#4 CACHED
+
+#5 [internal] load metadata for docker.io/library/python:3.12-slim
+#5 ...
+
+#6 [auth] library/python:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/python:3.12-slim
+#5 DONE 2.4s
+
+#7 [internal] load .dockerignore
+#7 transferring context: 94B done
+#7 DONE 0.0s
+
+#8 [build 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#8 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b done
+#8 DONE 0.0s
+
+#9 [internal] load build context
+#9 transferring context: 740B done
+#9 DONE 0.0s
+
+#10 [stage-1 6/7] COPY ticketdesk ./ticketdesk
+#10 CACHED
+
+#11 [stage-1 2/7] RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
+#11 CACHED
+
+#12 [build 3/4] COPY requirements.txt .
+#12 CACHED
+
+#13 [stage-1 5/7] WORKDIR /srv
+#13 CACHED
+
+#14 [stage-1 3/7] RUN useradd --system --uid 10001 --create-home appuser
+#14 CACHED
+
+#15 [build 4/4] RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+#15 CACHED
+
+#16 [stage-1 4/7] COPY --from=build /install /usr/local
+#16 CACHED
+
+#17 [build 2/4] WORKDIR /build
+#17 CACHED
+
+#18 [stage-1 7/7] RUN chmod -R a+rX,go-w /srv/ticketdesk
+#18 CACHED
+
+#19 exporting to image
+#19 exporting layers done
+#19 exporting manifest sha256:412497cd6e86113db2b4656a70502bfd121b18e6d4f69dae30d21f454790c90c done
+#19 exporting config sha256:e5e66ab2a55fa36f6761443d94ed766c4530a51729281a06f633eff924b30c1c done
+#19 naming to 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:eaed5ab-20261122203807 done
+#19 pushing layers
+#19 ...
+
+#20 [auth] sharing credentials for 9401****5845.dkr.ecr.ap-south-1.amazonaws.com
+#20 DONE 0.0s
+
+#19 exporting to image
+#19 pushing layers 0.5s done
+#19 pushing manifest for 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:eaed5ab-20261122203807@sha256:412497cd6e86113db2b4656a70502bfd121b18e6d4f69dae30d21f454790c90c
+#19 pushing manifest for 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:eaed5ab-20261122203807@sha256:412497cd6e86113db2b4656a70502bfd121b18e6d4f69dae30d21f454790c90c 0.2s done
+#19 DONE 0.7s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/z9ighbayh3o7sepknewncf4mt
+==> Waiting for i-02a5df5a8535b1b31 to be online in SSM
+==> Deploying eaed5ab-20261122203807 on i-02a5df5a8535b1b31 via SSM
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+	Login Succeeded
+eaed5ab-20261122203807: Pulling from ticketdesk-poc-app
+Digest: sha256:412497cd6e86113db2b4656a70502bfd121b18e6d4f69dae30d21f454790c90c
+Status: Downloaded newer image for 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:eaed5ab-20261122203807
+9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:eaed5ab-20261122203807
+ticketdesk
+e145179b35582a4e1b088c7da2a29463147bd8f068a16452db007d9b12c05e62
+deployed 9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app:eaed5ab-20261122203807
+	Success
+==> Waiting for http://13.203.87.250/health
+healthy (eaed5ab-20261122203807)
+exit=0
