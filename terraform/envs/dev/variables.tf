@@ -48,6 +48,12 @@ variable "github_repo" {
   description = "owner/repo for GitHub Actions OIDC deploys. Empty = skip creating the role."
 }
 
+variable "github_repo_ids" {
+  type        = string
+  default     = ""
+  description = "\"<owner_id>/<repo_id>\" for GitHub's immutable-ID OIDC subject (shown by the deploy workflow's 'OIDC claims' notice)."
+}
+
 variable "create_github_oidc_provider" {
   type    = bool
   default = true

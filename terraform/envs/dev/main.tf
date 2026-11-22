@@ -108,6 +108,7 @@ module "github_oidc" {
   source               = "../../modules/github_oidc"
   name                 = local.name
   github_repo          = var.github_repo
+  github_repo_ids      = var.github_repo_ids
   create_oidc_provider = var.create_github_oidc_provider
   ecr_repo_arn         = module.registry.repository_arn
   instance_id          = module.compute.instance_id

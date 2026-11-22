@@ -1,0 +1,148 @@
+$ terraform import module.database.aws_cloudwatch_log_group.postgresql /aws/rds/instance/ticketdesk-poc-db/postgresql ; scripts/infra.sh plan
+module.secrets.random_password.session: Refreshing state... [id=none]
+module.secrets.random_password.user: Refreshing state... [id=none]
+module.secrets.random_password.admin: Refreshing state... [id=none]
+module.lambda.data.archive_file.zip: Reading...
+module.lambda.data.archive_file.zip: Read complete after 0s [id=adc3201c2632f6609eaa7b5eef0723bf268eba24]
+module.storage.data.aws_caller_identity.current: Reading...
+module.iam.data.aws_caller_identity.current: Reading...
+module.lambda.data.aws_iam_policy_document.assume: Reading...
+module.network.data.aws_availability_zones.available: Reading...
+module.monitoring.aws_cloudwatch_log_group.app: Refreshing state... [id=/ticketdesk-poc/app]
+module.github_oidc.aws_iam_openid_connect_provider.github[0]: Refreshing state... [id=arn:aws:iam::9401****5845:oidc-provider/token.actions.githubusercontent.com]
+module.secrets.aws_secretsmanager_secret.app: Refreshing state... [id=arn:aws:secretsmanager:ap-south-1:9401****5845:secret:ticketdesk-poc/app-PhyWtt]
+module.database.aws_cloudwatch_log_group.postgresql: Refreshing state... [id=/aws/rds/instance/ticketdesk-poc-db/postgresql]
+module.lambda.aws_cloudwatch_log_group.lambda: Refreshing state... [id=/aws/lambda/ticketdesk-poc-file-processor]
+module.monitoring.aws_sns_topic.alerts: Refreshing state... [id=arn:aws:sns:ap-south-1:9401****5845:ticketdesk-poc-alerts]
+module.lambda.data.aws_iam_policy_document.assume: Read complete after 0s [id=2690255455]
+module.iam.data.aws_iam_policy_document.ec2_assume: Reading...
+module.iam.data.aws_iam_policy_document.ec2_assume: Read complete after 0s [id=2851119427]
+module.network.aws_vpc.this: Refreshing state... [id=vpc-03685702f23aece80]
+module.storage.data.aws_caller_identity.current: Read complete after 0s [id=9401****5845]
+module.registry.aws_ecr_repository.app: Refreshing state... [id=ticketdesk-poc-app]
+module.iam.data.aws_caller_identity.current: Read complete after 0s [id=9401****5845]
+module.compute.data.aws_ssm_parameter.al2023_arm64: Reading...
+module.network.data.aws_availability_zones.available: Read complete after 0s [id=ap-south-1]
+module.github_oidc.data.aws_caller_identity.current: Reading...
+module.lambda.aws_iam_role.lambda: Refreshing state... [id=ticketdesk-poc-lambda-role]
+module.iam.aws_iam_role.ec2: Refreshing state... [id=ticketdesk-poc-ec2-role]
+module.github_oidc.data.aws_caller_identity.current: Read complete after 0s [id=9401****5845]
+module.secrets.aws_secretsmanager_secret_version.app: Refreshing state... [id=arn:aws:secretsmanager:ap-south-1:9401****5845:secret:ticketdesk-poc/app-PhyWtt|terraform-20261122165458667900000001]
+module.monitoring.aws_sns_topic_subscription.email[0]: Refreshing state... [id=arn:aws:sns:ap-south-1:9401****5845:ticketdesk-poc-alerts:da2231df-ca8a-4e6a-8be2-5148802d762c]
+module.storage.aws_s3_bucket.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.monitoring.aws_cloudwatch_log_metric_filter.app_errors: Refreshing state... [id=ticketdesk-poc-app-errors]
+module.compute.data.aws_ssm_parameter.al2023_arm64: Read complete after 0s [id=/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64]
+module.monitoring.aws_cloudwatch_metric_alarm.app_errors: Refreshing state... [id=ticketdesk-poc-app-errors]
+module.registry.aws_ecr_lifecycle_policy.app: Refreshing state... [id=ticketdesk-poc-app]
+module.network.aws_route_table.private: Refreshing state... [id=rtb-0cd5ebc319867f86b]
+module.network.aws_internet_gateway.this: Refreshing state... [id=igw-00fe315c6221b4525]
+module.network.aws_subnet.private[0]: Refreshing state... [id=subnet-0b31151fc07a1d7b9]
+module.network.aws_default_security_group.default: Refreshing state... [id=sg-01751d15d0067640a]
+module.security.aws_security_group.app: Refreshing state... [id=sg-0712c52175e396700]
+module.network.aws_subnet.private[1]: Refreshing state... [id=subnet-09f6f1cacd920506c]
+module.network.aws_subnet.public[1]: Refreshing state... [id=subnet-017639257b6f21b5d]
+module.network.aws_subnet.public[0]: Refreshing state... [id=subnet-0996a57a60d4901b2]
+module.security.aws_security_group.db: Refreshing state... [id=sg-048fa0a7fc678c4ec]
+module.network.aws_route_table.public: Refreshing state... [id=rtb-06c4cc33062ab1abd]
+module.network.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0f7a41a0f2b609043]
+module.network.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-055427365ea846ee0]
+module.security.aws_vpc_security_group_egress_rule.app_https: Refreshing state... [id=sgr-0316b0321a75ee394]
+module.security.aws_vpc_security_group_ingress_rule.app_http["0.0.0.0/0"]: Refreshing state... [id=sgr-0906b230a4d60f72e]
+module.database.aws_db_subnet_group.this: Refreshing state... [id=ticketdesk-poc-db-subnets]
+module.security.aws_vpc_security_group_ingress_rule.db_from_app: Refreshing state... [id=sgr-0b7f54c913e9456a7]
+module.security.aws_vpc_security_group_egress_rule.app_to_db: Refreshing state... [id=sgr-0f5d1afd7a1530b29]
+module.network.aws_vpc_endpoint.s3: Refreshing state... [id=vpce-0943d3ddb905577e8]
+module.network.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-0ef76284bf1bb237e]
+module.network.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-09812ba1f2e2cecfa]
+module.storage.aws_s3_bucket_server_side_encryption_configuration.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.storage.aws_s3_bucket_public_access_block.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.storage.aws_s3_bucket_versioning.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.storage.aws_s3_bucket_lifecycle_configuration.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.storage.aws_s3_bucket_ownership_controls.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.storage.data.aws_iam_policy_document.tls_only: Reading...
+module.storage.data.aws_iam_policy_document.tls_only: Read complete after 0s [id=2955477930]
+module.lambda.data.aws_iam_policy_document.perms: Reading...
+module.lambda.data.aws_iam_policy_document.perms: Read complete after 0s [id=208687727]
+module.github_oidc.data.aws_iam_policy_document.trust[0]: Reading...
+module.github_oidc.data.aws_iam_policy_document.trust[0]: Read complete after 0s [id=1400371121]
+module.github_oidc.aws_iam_role.deploy[0]: Refreshing state... [id=ticketdesk-poc-github-deploy]
+module.storage.aws_s3_bucket_policy.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.database.aws_db_instance.this: Refreshing state... [id=db-KHJD3IDYTBOJDDZLEDCMU5Q5T4]
+module.monitoring.aws_cloudwatch_metric_alarm.rds_storage: Refreshing state... [id=ticketdesk-poc-rds-free-storage-low]
+module.monitoring.aws_cloudwatch_metric_alarm.rds_cpu: Refreshing state... [id=ticketdesk-poc-rds-cpu-high]
+module.iam.data.aws_iam_policy_document.app: Reading...
+module.iam.data.aws_iam_policy_document.app: Read complete after 0s [id=1826735542]
+module.iam.aws_iam_role_policy_attachment.ssm: Refreshing state... [id=ticketdesk-poc-ec2-role-20261122160459202900000003]
+module.lambda.aws_iam_role_policy.lambda: Refreshing state... [id=ticketdesk-poc-lambda-role:ticketdesk-poc-lambda-policy]
+module.iam.aws_iam_instance_profile.ec2: Refreshing state... [id=ticketdesk-poc-ec2-profile]
+module.iam.aws_iam_role_policy.app: Refreshing state... [id=ticketdesk-poc-ec2-role:ticketdesk-poc-app-policy]
+module.lambda.aws_lambda_function.processor: Refreshing state... [id=ticketdesk-poc-file-processor]
+module.lambda.aws_lambda_permission.s3: Refreshing state... [id=AllowS3Invoke]
+module.monitoring.aws_cloudwatch_metric_alarm.lambda_errors: Refreshing state... [id=ticketdesk-poc-lambda-errors]
+module.lambda.aws_s3_bucket_notification.attachments: Refreshing state... [id=ticketdesk-poc-attachments-9401****5845]
+module.compute.aws_instance.app: Refreshing state... [id=i-02a5df5a8535b1b31]
+module.compute.aws_eip.app: Refreshing state... [id=eipalloc-0637b5e6fde4597a4]
+module.monitoring.aws_cloudwatch_dashboard.main: Refreshing state... [id=ticketdesk-poc-dashboard]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_cpu: Refreshing state... [id=ticketdesk-poc-ec2-cpu-high]
+module.monitoring.aws_cloudwatch_metric_alarm.ec2_status: Refreshing state... [id=ticketdesk-poc-ec2-status-check-failed]
+module.github_oidc.data.aws_iam_policy_document.deploy[0]: Reading...
+module.github_oidc.data.aws_iam_policy_document.deploy[0]: Read complete after 0s [id=1133777403]
+module.github_oidc.aws_iam_role_policy.deploy[0]: Refreshing state... [id=ticketdesk-poc-github-deploy:ticketdesk-poc-github-deploy-policy]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # module.database.aws_cloudwatch_log_group.postgresql will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "postgresql" {
+        id                = "/aws/rds/instance/ticketdesk-poc-db/postgresql"
+        name              = "/aws/rds/instance/ticketdesk-poc-db/postgresql"
+      ~ retention_in_days = 0 -> 14
+        tags              = {}
+      ~ tags_all          = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ticketdesk-poc"
+        }
+        # (5 unchanged attributes hidden)
+    }
+
+  # module.github_oidc.aws_iam_role.deploy[0] will be updated in-place
+  ~ resource "aws_iam_role" "deploy" {
+      ~ assume_role_policy    = jsonencode(
+          ~ {
+              ~ Statement = [
+                  ~ {
+                      ~ Condition = {
+                          ~ StringEquals = {
+                              ~ "token.actions.githubusercontent.com:sub" = "repo:Prashant-Soni007/ticketdesk-poc:ref:refs/heads/main" -> [
+                                  + "repo:Prashant-Soni007/ticketdesk-poc:ref:refs/heads/main",
+                                  + "repo:Prashant-Soni007@92619562/ticketdesk-poc@1467834240:ref:refs/heads/main",
+                                ]
+                                # (1 unchanged attribute hidden)
+                            }
+                        }
+                        # (3 unchanged attributes hidden)
+                    },
+                ]
+                # (1 unchanged attribute hidden)
+            }
+        )
+        id                    = "ticketdesk-poc-github-deploy"
+        name                  = "ticketdesk-poc-github-deploy"
+        tags                  = {}
+        # (11 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "tfplan"

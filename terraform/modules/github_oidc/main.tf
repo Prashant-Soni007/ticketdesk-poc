@@ -5,6 +5,11 @@ variable "github_repo" {
   description = "owner/repo allowed to assume the role (main branch only). Empty = module disabled"
   default     = ""
 }
+variable "github_repo_ids" {
+  type        = string
+  default     = ""
+  description = "\"<owner_id>/<repo_id>\" – GitHub now issues OIDC subjects with immutable IDs (repo:owner@id/repo@id:...). Set it to trust that format."
+}
 variable "create_oidc_provider" {
   type        = bool
   default     = true
@@ -18,6 +23,14 @@ data "aws_caller_identity" "current" {}
 
 locals {
   enabled = var.github_repo != ""
+  owner   = split("/", var.github_repo)[0]
+  repo    = try(split("/", var.github_repo)[1], "")
+  ids     = var.github_repo_ids == "" ? [] : split("/", var.github_repo_ids)
+  # main branch only, in both the classic and the immutable-ID subject formats
+  subjects = concat(
+    ["repo:${var.github_repo}:ref:refs/heads/main"],
+    length(local.ids) == 2 ? ["repo:${local.owner}@${local.ids[0]}/${local.repo}@${local.ids[1]}:ref:refs/heads/main"] : []
+  )
 }
 
 resource "aws_iam_openid_connect_provider" "github" {
@@ -51,7 +64,7 @@ data "aws_iam_policy_document" "trust" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_repo}:ref:refs/heads/main"]
+      values   = local.subjects
     }
   }
 }
