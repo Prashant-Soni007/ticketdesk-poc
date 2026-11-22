@@ -47,7 +47,7 @@ Rotate them: `terraform -chdir=terraform/envs/dev plan -var-file=dev.tfvars -rep
 - `ci.yml`: ruff, pytest, gitleaks, Docker build + Trivy scan, `terraform fmt/validate`, tfsec (HIGH+), checkov.
 - `deploy.yml`: OIDC → ECR → SSM → health check. Set `github_repo` in `dev.tfvars`, re-apply, then add repository **Variables**
   (Settings → Secrets and variables → Actions → *Variables* tab, not Secrets) `AWS_REGION`, `AWS_DEPLOY_ROLE_ARN`, `ECR_REPOSITORY_URL`,
-  `EC2_INSTANCE_ID`, `APP_URL` (values from `scripts/infra.sh output`). The job is skipped until `AWS_DEPLOY_ROLE_ARN` is set.
+  `EC2_INSTANCE_ID`, `APP_URL` (values from `scripts/infra.sh output`). `deploy.yml` falls back to the current dev-stack values when the Variables are unset (update the instance ID after an instance replacement).
 
 ## 4. Security design
 No credentials in git (gitleaks in CI; secrets in Secrets Manager, RDS-managed master password). Least-privilege IAM

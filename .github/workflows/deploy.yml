@@ -17,15 +17,16 @@ concurrency:
 
 jobs:
   deploy:
-    # Skips (instead of failing) until the OIDC role exists and the repo variables are set (README §3)
-    if: ${{ vars.AWS_DEPLOY_ROLE_ARN != '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
       AWS_REGION: ${{ vars.AWS_REGION || 'ap-south-1' }}
-      REPO_URL: ${{ vars.ECR_REPOSITORY_URL }}
-      INSTANCE_ID: ${{ vars.EC2_INSTANCE_ID }}
-      APP_URL: ${{ vars.APP_URL }}
+      # Defaults = current dev stack (terraform output). Not secrets; repo Variables override them.
+      # Update EC2_INSTANCE_ID if the instance is ever replaced.
+      DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN || 'arn:aws:iam::940111675845:role/ticketdesk-poc-github-deploy' }}
+      REPO_URL: ${{ vars.ECR_REPOSITORY_URL || '940111675845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app' }}
+      INSTANCE_ID: ${{ vars.EC2_INSTANCE_ID || 'i-02a5df5a8535b1b31' }}
+      APP_URL: ${{ vars.APP_URL || 'http://13.203.87.250' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -35,7 +36,7 @@ jobs:
           for v in REPO_URL INSTANCE_ID APP_URL; do
             [ -n "${!v}" ] || { echo "::error::repository variable for $v is not set"; missing=1; }
           done
-          [ -n "${{ vars.AWS_DEPLOY_ROLE_ARN }}" ] || { echo "::error::AWS_DEPLOY_ROLE_ARN is not set"; missing=1; }
+          [ -n "$DEPLOY_ROLE_ARN" ] || { echo "::error::AWS_DEPLOY_ROLE_ARN is not set"; missing=1; }
           exit $missing
 
       - name: Compute image tag
@@ -45,7 +46,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          role-to-assume: ${{ env.DEPLOY_ROLE_ARN }}
           role-session-name: ticketdesk-deploy-${{ github.run_id }}
           aws-region: ${{ env.AWS_REGION }}
 
