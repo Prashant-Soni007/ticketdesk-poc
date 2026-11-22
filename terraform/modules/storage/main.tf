@@ -2,6 +2,10 @@ variable "name" { type = string }
 data "aws_caller_identity" "current" {}
 
 resource "aws_s3_bucket" "attachments" {
+  #checkov:skip=CKV2_AWS_62:False positive - the ObjectCreated notification to Lambda is defined in modules/lambda (aws_s3_bucket_notification)
+  #checkov:skip=CKV_AWS_18:POC - server access logging needs a separate log bucket; object events already reach Lambda/CloudWatch
+  #checkov:skip=CKV_AWS_144:POC cost - cross-region replication needs a second region and bucket; versioning protects against overwrites
+  #checkov:skip=CKV_AWS_145:Accepted POC risk - SSE-S3 (AES256) at rest; a KMS CMK costs $1/month for no extra control here
   bucket        = "${var.name}-attachments-${data.aws_caller_identity.current.account_id}"
   force_destroy = true # POC: allows clean destroy even with uploaded files
 }

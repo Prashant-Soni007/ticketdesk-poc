@@ -17,6 +17,7 @@ locals {
 }
 
 resource "aws_vpc" "this" {
+  #checkov:skip=CKV2_AWS_11:POC cost - VPC flow logs not enabled; candidate for production (CloudWatch or S3 destination)
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true

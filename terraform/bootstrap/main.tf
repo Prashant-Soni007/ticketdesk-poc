@@ -25,6 +25,11 @@ provider "aws" {
 data "aws_caller_identity" "current" {}
 
 resource "aws_s3_bucket" "state" {
+  #checkov:skip=CKV2_AWS_62:State bucket - no event consumers needed
+  #checkov:skip=CKV2_AWS_61:Intentional - noncurrent state versions are kept as history/rollback for this short-lived POC
+  #checkov:skip=CKV_AWS_18:POC - server access logging needs a separate log bucket
+  #checkov:skip=CKV_AWS_144:POC cost - single-region state; versioning protects against bad writes
+  #checkov:skip=CKV_AWS_145:Accepted POC risk - SSE-S3 (AES256) at rest; a KMS CMK costs $1/month for no extra control here
   bucket        = "${var.project}-tfstate-${data.aws_caller_identity.current.account_id}"
   force_destroy = true # POC: allows clean `terraform destroy`
 }

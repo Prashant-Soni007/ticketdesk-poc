@@ -21,6 +21,7 @@ resource "aws_db_subnet_group" "this" {
 }
 
 resource "aws_db_instance" "this" {
+  #checkov:skip=CKV2_AWS_30:POC - statement logging needs a custom parameter group and writes SQL (possible personal data) to logs; postgresql log export is on
   #checkov:skip=CKV_AWS_157:POC cost - single-AZ db.t4g.micro
   #checkov:skip=CKV_AWS_293:POC must be destroyable with `terraform destroy`
   #checkov:skip=CKV_AWS_353:POC cost/noise - Performance Insights not needed

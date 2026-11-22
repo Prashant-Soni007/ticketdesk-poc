@@ -11,6 +11,7 @@ variable "http_prefix_list_id" {
 }
 
 resource "aws_security_group" "app" {
+  #checkov:skip=CKV2_AWS_5:False positive - attached to the EC2 instance via module.compute (checkov cannot follow module variables)
   name        = "${var.name}-app-sg"
   description = "TicketDesk app: HTTP in, no SSH (use SSM Session Manager)"
   vpc_id      = var.vpc_id
@@ -59,6 +60,7 @@ resource "aws_vpc_security_group_egress_rule" "app_to_db" {
 }
 
 resource "aws_security_group" "db" {
+  #checkov:skip=CKV2_AWS_5:False positive - attached to the RDS instance via module.database (checkov cannot follow module variables)
   name        = "${var.name}-db-sg"
   description = "RDS: only reachable from the app security group"
   vpc_id      = var.vpc_id

@@ -24,8 +24,8 @@ $ tfsec terraform/bootstrap (all severities, counts)
   medium               1
   low                  0
   8 passed, 1 ignored, 1 potential problem(s) detected.
-$ checkov -d terraform --framework terraform --compact --quiet
-Passed checks: 164, Failed checks: 0, Skipped checks: 28
+$ checkov -d terraform --framework terraform --compact --quiet   (pip checkov 3.4.6, as in CI)
+Passed checks: 197, Failed checks: 0, Skipped checks: 45
 exit=0
 $ ignore/skip annotations in code (justification inline)
 bootstrap/main.tf:38:#tfsec:ignore:aws-s3-encryption-customer-key

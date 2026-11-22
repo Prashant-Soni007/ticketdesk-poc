@@ -9,7 +9,7 @@ Account id masked as `9401****5845`. Problems and fixes: [../problems.md](../pro
 | 2 | App unit tests 16/16, Lambda tests 2/2 | 02, 03 |
 | 3 | terraform fmt / validate (bootstrap + envs/dev) | 04 |
 | 4 | tfsec HIGH: no problems (each root scanned separately) | 05 |
-| 5 | checkov: 158 passed, 0 failed, 21 justified skips | 06 |
+| 5 | checkov (full check set, as in CI): 197 passed, 0 failed, 45 justified skips | 06 |
 | 6 | gitleaks: no leaks (before and after deploy, incl. evidence) | 07, 43 |
 | 7 | `bash -n` on all scripts | 08 |
 | 8 | Local docker compose e2e 14/14 + download / bad file type / CSRF | 10, 12, 14 |

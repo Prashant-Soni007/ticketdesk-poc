@@ -173,7 +173,7 @@ From `117-iam-s3-security.txt`:
 - **S3** attachments bucket: all 4 public-access-block flags true; SSE `AES256` with bucket key; versioning Enabled; bucket policy `DenyInsecureTransport` (`aws:SecureTransport=false` → deny `s3:*`); policy status `IsPublic=false`; anonymous GET → 403 (`41-s3-private.txt`).
 - **Scanners** (`122-iac-scans.txt`):
   - tfsec `envs/dev`: HIGH/CRITICAL 0; 7 ignored (justified); remaining MEDIUM 5, LOW 5. tfsec `bootstrap`: HIGH 0, 1 ignored, MEDIUM 1.
-  - checkov: **164 passed, 0 failed, 28 skipped**.
+  - checkov (pip 3.4.6, same as CI): **197 passed, 0 failed, 45 skipped**. A Homebrew build of the same version silently ran ~45 fewer checks (problems.md #26).
   - Every ignore/skip has an inline justification in the code (full list in `122-iac-scans.txt`). Main themes: KMS customer keys not used (cost; AWS-managed encryption is on); single-AZ/no deletion protection/no enhanced monitoring (POC cost and destroyability); no WAF/access logs on the disabled CloudFront; public HTTP by design without ALB; `:*` log-stream wildcards; Lambda outside VPC (no NAT); no reserved concurrency (account limit 10).
 - App level: CSRF tokens on every POST, PBKDF2-SHA256 (200k iterations), session cookie `SameSite=Lax` (Secure flag off because HTTP), RBAC, upload type/size limits, non-root container, IMDSv2, no SSH, encrypted EBS/RDS/S3.
 

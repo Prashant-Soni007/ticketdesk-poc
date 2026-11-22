@@ -1,7 +1,9 @@
-$ checkov -d terraform --framework terraform --compact --quiet
+$ checkov -d terraform --framework terraform --compact --quiet   (checkov 3.4.6 installed with pip – same as CI)
 terraform scan results:
 
-Passed checks: 164, Failed checks: 0, Skipped checks: 28
+Passed checks: 197, Failed checks: 0, Skipped checks: 45
 
 
 exit=0
+
+Note: an earlier run used a Homebrew build of checkov 3.4.6 that ships ~45 fewer checks (164 vs 211); see problems.md #26.

@@ -18,6 +18,7 @@ resource "random_password" "session" {
 }
 
 resource "aws_secretsmanager_secret" "app" {
+  #checkov:skip=CKV2_AWS_57:Rotated on demand with terraform apply -replace + redeploy (app re-syncs seed passwords at startup; tested)
   #checkov:skip=CKV_AWS_149:POC - encrypted with the AWS-managed aws/secretsmanager key; a CMK adds cost for no extra control here
   name                    = "${var.name}/app"
   description             = "TicketDesk app secrets (seed passwords, session signing key)"
