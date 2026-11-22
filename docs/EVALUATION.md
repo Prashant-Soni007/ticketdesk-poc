@@ -24,7 +24,7 @@ Stack is live: http://13.203.87.250 (58 resources, ~$1.10/day).
 | Testing & validation (10) | **PASS / PARTIAL** | 17 app + 2 Lambda unit tests, 17-check e2e smoke test (local + AWS), security scanners, reboot/redeploy/alarm tests. Gap: no written test report – results only live in evidence files. |
 | Documentation & demonstration (5) | **FAIL** | No POC document yet (see §4). `docs/ARCHITECTURE.md` is 20 lines; demo not prepared. |
 | *IaC (extra weight)* | **PASS** | 11 Terraform modules, S3 remote state with native locking, bootstrap stack, fmt/validate/tfsec/checkov clean (04–06). |
-| *Pipelines (extra weight)* | **PARTIAL** | `.github/workflows/ci.yml` + `deploy.yml` exist and pass actionlint, **but have never run**: no commits, no GitHub remote, OIDC deploy role not created (`github_repo` empty). |
+| *Pipelines (extra weight)* | **PARTIAL** | CI green on GitHub (4/4 jobs, `140-github-actions-runs.txt`). Deploy workflow skips until the OIDC role (`github_repo`) and repo variables exist. |
 
 ## 3. Deployment readiness checklist
 **Application setup** – runs locally PASS (12) · config documented PARTIAL (README only, no variable table) · dependencies PASS · workflow validated PASS · login PASS · ticket creation PASS · status updates PASS · dashboard PASS.

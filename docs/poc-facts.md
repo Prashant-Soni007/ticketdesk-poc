@@ -24,7 +24,7 @@ Masking in evidence: AWS account id `9401****5845`, alert email `<alert-email>`,
 | Tests/lint | pytest 8.3.4, httpx 0.28.1, ruff 0.8.4 |
 
 - **Repo layout (depth 3):** `101-repo-layout.txt`. Top level: `app/` (FastAPI app, tests, Dockerfile) · `lambda/` · `terraform/{bootstrap,envs/dev,modules/*}` · `scripts/` · `.github/workflows/` · `docs/`.
-- **Git** (`102-git.txt`): `git remote -v` → **empty, no remote configured**. Commits: **1** (`b763359 TicketDesk POC: FastAPI app on AWS with Terraform, CI/CD and evidence`, 110 files). `user.name` = **Prashant Soni**. Commit author: Prashant Soni (single author).
+- **Git** (`102-git.txt`): Remote: **https://github.com/Prashant-Soni007/ticketdesk-poc** (public; `102-git.txt` was captured before it was added). Commits: **1** (`b763359 TicketDesk POC: FastAPI app on AWS with Terraform, CI/CD and evidence`, 110 files). `user.name` = **Prashant Soni**. Commit author: Prashant Soni (single author).
 
 ## 2. Application flow
 - **Routes** (`103-routes.txt`, from `create_app()`):
@@ -140,7 +140,7 @@ From `112-rds.txt`: PostgreSQL **16.13**, `db.t4g.micro`, **gp3 20 GB** (autosca
 ## 11. CI/CD
 - `.github/workflows/ci.yml` (push + PR), jobs: **python** (ruff, app pytest, Lambda pytest) · **secrets** (gitleaks on git history) · **image** (Docker build + Trivy HIGH/CRITICAL ignore-unfixed) · **terraform** (fmt -check, validate bootstrap + dev, tfsec per root, checkov).
 - `.github/workflows/deploy.yml` (push to `main` + manual): OIDC `configure-aws-credentials` with `vars.AWS_DEPLOY_ROLE_ARN` → ECR login → QEMU/buildx arm64 build + push (unique tag) → SSM send-command → poll status → `/health`. Needs repo variables `AWS_REGION`, `AWS_DEPLOY_ROLE_ARN`, `ECR_REPOSITORY_URL`, `EC2_INSTANCE_ID`, `APP_URL`.
-- **Have they run? NOT VERIFIED – they have not:** no git remote exists and `gh` is not authenticated, so `gh run list` cannot run (`102-git.txt`). Workflows were checked with actionlint 1.7.7 (no findings).
+- **Runs** (`140-github-actions-runs.txt`, repo https://github.com/Prashant-Soni007/ticketdesk-poc): CI run 1 failed (trivy-action tag not found; unpinned checkov check set), run 2 failed (checkov findings from the full check set), **run 3 on `28333c8` passed all 4 jobs**. Deploy workflow runs are `skipped` by design until the OIDC role and repo variables exist. Fixes: problems.md #25, #26. actionlint 1.7.7: no findings.
 - **OIDC status** (`117-iam-s3-security.txt`): role `ticketdesk-poc-github-deploy` → NoSuchEntity; GitHub OIDC providers in account: 0. Not set up (`github_repo` is empty).
 
 ## 12. Monitoring
@@ -317,8 +317,8 @@ Ranked by scoring weight (security, IaC, pipelines and testing weigh most; pass/
 
 | Rank | Gap | Brief item | Status |
 |---|---|---|---|
-| 1 | No git remote → no repo link; git-history secret scan not visible to evaluators | Email C; pass/fail 1 | FAIL |
-| 2 | Pipelines never ran; OIDC role absent; first push will trigger a failing deploy run | IaC/pipelines weight | NOT VERIFIED |
+| 1 | ~~No git remote~~ – pushed to https://github.com/Prashant-Soni007/ticketdesk-poc; gitleaks runs on history in CI | Email C; pass/fail 1 | DONE |
+| 2 | CI green (run 3); deploy pipeline not yet exercised – OIDC role and repo variables absent (deploy job skips) | IaC/pipelines weight | PARTIAL |
 | 3 | Deployer IAM user has AdministratorAccess, no MFA | Pass/fail 2; Security | PARTIAL |
 | 4 | Live app passwords exposed in plain text and not rotated since; app is public | Security | RISK |
 | 5 | No POC document / contribution table / architecture diagram | Docs (5) + individual 60 | FAIL |

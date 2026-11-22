@@ -1,0 +1,7 @@
+$ GET https://api.github.com/repos/Prashant-Soni007/ticketdesk-poc/actions/runs  (public API)
+2026-11-22T18:07:15Z  Deploy  28333c8  completed skipped  https://github.com/Prashant-Soni007/ticketdesk-poc/actions/runs/45053242313
+2026-11-22T18:07:15Z  CI      28333c8  completed success  https://github.com/Prashant-Soni007/ticketdesk-poc/actions/runs/45053242172
+2026-11-22T18:04:20Z  CI      dbeeb46  completed failure  https://github.com/Prashant-Soni007/ticketdesk-poc/actions/runs/45052962263
+2026-11-22T18:04:20Z  Deploy  dbeeb46  completed skipped  https://github.com/Prashant-Soni007/ticketdesk-poc/actions/runs/45052962192
+2026-11-22T17:57:31Z  CI      a1ca1c3  completed failure  https://github.com/Prashant-Soni007/ticketdesk-poc/actions/runs/45052318953
+2026-11-22T17:57:31Z  Deploy  a1ca1c3  completed skipped  https://github.com/Prashant-Soni007/ticketdesk-poc/actions/runs/45052318849
