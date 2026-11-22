@@ -5,6 +5,7 @@ name: Deploy
 on:
   push:
     branches: [main]
+    paths-ignore: ['docs/**', '**.md']   # documentation changes do not redeploy
   workflow_dispatch:
 
 permissions:

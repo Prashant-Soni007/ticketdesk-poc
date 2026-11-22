@@ -178,7 +178,7 @@ flowchart LR
   end
 ```
 - **CI** (`ci.yml`, every push and pull request): 4 parallel jobs; actions pinned (Trivy by commit, checkov by version). Status: green [140].
-- **Deploy** (`deploy.yml`): GitHub OIDC → IAM role `ticketdesk-poc-github-deploy` (trust limited to `main` of this repository) → ECR → SSM → health check. **No AWS keys stored in GitHub.** Requires repository *Variables* (not Secrets): `AWS_REGION`, `AWS_DEPLOY_ROLE_ARN`, `ECR_REPOSITORY_URL`, `EC2_INSTANCE_ID`, `APP_URL`; the job skips until they exist.
+- **Deploy** (`deploy.yml`) – **verified end to end**: run on `108d045` built the image, deployed via SSM and passed the health check; the instance runs that image and the smoke test passed [140, 146]. GitHub OIDC → IAM role `ticketdesk-poc-github-deploy` (trust limited to `main` of this repository) → ECR → SSM → health check. **No AWS keys stored in GitHub.** Requires repository *Variables* (not Secrets): `AWS_REGION`, `AWS_DEPLOY_ROLE_ARN`, `ECR_REPOSITORY_URL`, `EC2_INSTANCE_ID`, `APP_URL`; the job skips until they exist.
 - Manual equivalent: `scripts/deploy.sh` (used for deploys #1–#5).
 
 ## 13. CloudWatch / monitoring
