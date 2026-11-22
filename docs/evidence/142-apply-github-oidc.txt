@@ -1,0 +1,26 @@
+$ scripts/infra.sh apply   (GitHub OIDC provider + deploy role)
+module.github_oidc.aws_iam_openid_connect_provider.github[0]: Creating...
+module.github_oidc.aws_iam_openid_connect_provider.github[0]: Creation complete after 2s [id=arn:aws:iam::9401****5845:oidc-provider/token.actions.githubusercontent.com]
+module.github_oidc.data.aws_iam_policy_document.trust[0]: Reading...
+module.github_oidc.data.aws_iam_policy_document.trust[0]: Read complete after 0s [id=838635549]
+module.github_oidc.aws_iam_role.deploy[0]: Creating...
+module.github_oidc.aws_iam_role.deploy[0]: Creation complete after 2s [id=ticketdesk-poc-github-deploy]
+module.github_oidc.aws_iam_role_policy.deploy[0]: Creating...
+module.github_oidc.aws_iam_role_policy.deploy[0]: Creation complete after 1s [id=ticketdesk-poc-github-deploy:ticketdesk-poc-github-deploy-policy]
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+app_log_group = "/ticketdesk-poc/app"
+app_secret_arn = "arn:aws:secretsmanager:ap-south-1:9401****5845:secret:ticketdesk-poc/app-PhyWtt"
+app_url = "http://13.203.87.250"
+attachments_bucket = "ticketdesk-poc-attachments-9401****5845"
+cloudfront_distribution_id = ""
+ecr_repository_url = "9401****5845.dkr.ecr.ap-south-1.amazonaws.com/ticketdesk-poc-app"
+github_deploy_role_arn = "arn:aws:iam::9401****5845:role/ticketdesk-poc-github-deploy"
+instance_id = "i-02a5df5a8535b1b31"
+lambda_function = "ticketdesk-poc-file-processor"
+origin_url = "http://13.203.87.250"
+rds_endpoint = "ticketdesk-poc-db.cr4euoigchpi.ap-south-1.rds.amazonaws.com"
+exit=0

@@ -20,6 +20,15 @@ resource "aws_db_subnet_group" "this" {
   subnet_ids = var.private_subnet_ids
 }
 
+# RDS writes PostgreSQL logs here (enabled_cloudwatch_logs_exports). Managing the group in Terraform gives it a
+# retention period and makes `terraform destroy` remove it (otherwise RDS creates it with no expiry).
+resource "aws_cloudwatch_log_group" "postgresql" {
+  #checkov:skip=CKV_AWS_338:POC - 14-day retention keeps cost low; no compliance retention requirement
+  #checkov:skip=CKV_AWS_158:POC - CloudWatch Logs are encrypted at rest by default; KMS CMK adds cost
+  name              = "/aws/rds/instance/${var.name}-db/postgresql"
+  retention_in_days = 14
+}
+
 resource "aws_db_instance" "this" {
   #checkov:skip=CKV2_AWS_30:POC - statement logging needs a custom parameter group and writes SQL (possible personal data) to logs; postgresql log export is on
   #checkov:skip=CKV_AWS_157:POC cost - single-AZ db.t4g.micro
@@ -57,6 +66,8 @@ resource "aws_db_instance" "this" {
   final_snapshot_identifier       = var.skip_final_snapshot ? null : "${var.name}-final"
   enabled_cloudwatch_logs_exports = ["postgresql"]
   apply_immediately               = true
+
+  depends_on = [aws_cloudwatch_log_group.postgresql] # group exists before RDS starts exporting
 }
 
 output "address" { value = aws_db_instance.this.address }

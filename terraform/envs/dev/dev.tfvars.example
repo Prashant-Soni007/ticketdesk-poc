@@ -3,4 +3,5 @@ region        = "ap-south-1"
 aws_profile   = "ticketdesk"
 alert_email   = "you@example.com"
 # allowed_cidrs = ["203.0.113.10/32"]   # restrict to your public IP
-# github_repo   = "your-user/ticketdesk-poc"
+# github_repo   = "your-user/ticketdesk-poc"   # creates the GitHub OIDC deploy role
+# enable_cloudfront = true   # HTTPS via CloudFront; only after AWS has verified the account for CloudFront

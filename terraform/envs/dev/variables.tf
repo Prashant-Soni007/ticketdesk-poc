@@ -22,8 +22,8 @@ variable "allowed_cidrs" {
 
 variable "enable_cloudfront" {
   type        = bool
-  default     = true
-  description = "Free HTTPS via CloudFront (default *.cloudfront.net cert). EC2 port 80 then only accepts CloudFront."
+  default     = false
+  description = "Free HTTPS via CloudFront (default *.cloudfront.net cert). EC2 port 80 then only accepts CloudFront. New AWS accounts must be verified by AWS Support first."
 }
 
 variable "alert_email" {

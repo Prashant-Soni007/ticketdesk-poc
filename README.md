@@ -1,5 +1,10 @@
 # TicketDesk – AWS Deployment POC
 
+[![CI](https://github.com/Prashant-Soni007/ticketdesk-poc/actions/workflows/ci.yml/badge.svg)](https://github.com/Prashant-Soni007/ticketdesk-poc/actions/workflows/ci.yml)
+
+**Docs:** [POC document](docs/POC_DOCUMENT.md) · [Architecture](docs/ARCHITECTURE.md) · [Problems & fixes](docs/problems.md) · [Evidence](docs/evidence/)  
+**Cost:** ≈ USD 29–33/month in ap-south-1 while running (details in the POC document §15).
+
 Lightweight IT support ticket tracker (login, create/view tickets, Open → In Progress → Resolved → Closed, dashboard, file attachments)
 deployed on AWS with Terraform.
 
@@ -40,8 +45,9 @@ Rotate them: `terraform -chdir=terraform/envs/dev plan -var-file=dev.tfvars -rep
 
 ## 3. CI/CD (GitHub Actions)
 - `ci.yml`: ruff, pytest, gitleaks, Docker build + Trivy scan, `terraform fmt/validate`, tfsec (HIGH+), checkov.
-- `deploy.yml`: OIDC → ECR → SSM → health check. Set `github_repo` in `dev.tfvars`, re-apply, then add repo variables
-  `AWS_REGION`, `AWS_DEPLOY_ROLE_ARN`, `ECR_REPOSITORY_URL`, `EC2_INSTANCE_ID`, `APP_URL` (values from `scripts/infra.sh output`).
+- `deploy.yml`: OIDC → ECR → SSM → health check. Set `github_repo` in `dev.tfvars`, re-apply, then add repository **Variables**
+  (Settings → Secrets and variables → Actions → *Variables* tab, not Secrets) `AWS_REGION`, `AWS_DEPLOY_ROLE_ARN`, `ECR_REPOSITORY_URL`,
+  `EC2_INSTANCE_ID`, `APP_URL` (values from `scripts/infra.sh output`). The job is skipped until `AWS_DEPLOY_ROLE_ARN` is set.
 
 ## 4. Security design
 No credentials in git (gitleaks in CI; secrets in Secrets Manager, RDS-managed master password). Least-privilege IAM
@@ -55,6 +61,7 @@ export AWS_PROFILE=ticketdesk
 scripts/infra.sh destroy                                   # save the output as evidence
 terraform -chdir=terraform/envs/dev state list             # must be empty
 cd terraform/bootstrap && terraform destroy                # LAST: removes the state bucket
+aws logs describe-log-groups --log-group-name-prefix /aws/rds/instance/ticketdesk-poc  # must be empty
 ```
 Then delete the IAM access key used for this POC and check Cost Explorer after 24 h.
 
